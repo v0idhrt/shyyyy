@@ -14,8 +14,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 691.5,
-                    "y": 1462,
+                    "x": 201.5,
+                    "y": 161,
                     "lines": [
                         "Wall_02"
                     ],
@@ -27,8 +27,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 674,
-                    "y": 1652.5,
+                    "x": 219,
+                    "y": 351.5,
                     "lines": [
                         "Wall_18"
                     ],
@@ -40,8 +40,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 424,
-                    "y": 1471.5,
+                    "x": 469,
+                    "y": 170.5,
                     "lines": [
                         "Wall_20"
                     ],
@@ -53,8 +53,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 472,
-                    "y": 1471.5,
+                    "x": 421,
+                    "y": 170.5,
                     "lines": [
                         "Wall_20"
                     ],
@@ -66,8 +66,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 424,
-                    "y": 1313,
+                    "x": 469,
+                    "y": 12,
                     "lines": [
                         "Wall_22"
                     ],
@@ -79,8 +79,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 450,
-                    "y": 1313,
+                    "x": 443,
+                    "y": 12,
                     "lines": [
                         "Wall_22"
                     ],
@@ -92,8 +92,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 699.5,
-                    "y": 1497,
+                    "x": 193.5,
+                    "y": 196,
                     "lines": [
                         "Wall_01"
                     ],
@@ -105,8 +105,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 699.5,
-                    "y": 1635,
+                    "x": 193.5,
+                    "y": 334,
                     "lines": [
                         "Wall_01"
                     ],
@@ -118,8 +118,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 613,
-                    "y": 1414,
+                    "x": 280,
+                    "y": 113,
                     "lines": [
                         "Wall_04",
                         "Wall_05"
@@ -132,8 +132,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 613,
-                    "y": 1462,
+                    "x": 280,
+                    "y": 161,
                     "lines": [
                         "Wall_04"
                     ],
@@ -145,8 +145,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 611.5,
-                    "y": 1313,
+                    "x": 281.5,
+                    "y": 12,
                     "lines": [
                         "Wall_05"
                     ],
@@ -158,8 +158,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 691.5,
-                    "y": 1498,
+                    "x": 201.5,
+                    "y": 197,
                     "lines": [
                         "Wall_02"
                     ],
@@ -171,8 +171,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 615,
-                    "y": 1342.5,
+                    "x": 278,
+                    "y": 41.5,
                     "lines": [
                         "Wall_06"
                     ],
@@ -184,8 +184,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 638,
-                    "y": 1342.5,
+                    "x": 255,
+                    "y": 41.5,
                     "lines": [
                         "Wall_06"
                     ],
@@ -197,8 +197,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 635.5,
-                    "y": 1345,
+                    "x": 257.5,
+                    "y": 44,
                     "lines": [
                         "Wall_07"
                     ],
@@ -210,8 +210,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 635.5,
-                    "y": 1408,
+                    "x": 257.5,
+                    "y": 107,
                     "lines": [
                         "Wall_07"
                     ],
@@ -223,8 +223,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 615,
-                    "y": 1411,
+                    "x": 278,
+                    "y": 110,
                     "lines": [
                         "Wall_08"
                     ],
@@ -236,8 +236,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 768,
-                    "y": 1411,
+                    "x": 125,
+                    "y": 110,
                     "lines": [
                         "Wall_08"
                     ],
@@ -249,8 +249,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 679.5,
-                    "y": 1313,
+                    "x": 213.5,
+                    "y": 12,
                     "lines": [
                         "Wall_09"
                     ],
@@ -262,8 +262,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 679.5,
-                    "y": 1408,
+                    "x": 213.5,
+                    "y": 107,
                     "lines": [
                         "Wall_09"
                     ],
@@ -275,8 +275,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 765,
-                    "y": 1313,
+                    "x": 128,
+                    "y": 12,
                     "lines": [
                         "Wall_10"
                     ],
@@ -288,8 +288,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 765,
-                    "y": 1390,
+                    "x": 128,
+                    "y": 89,
                     "lines": [
                         "Wall_10"
                     ],
@@ -301,8 +301,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 489,
-                    "y": 1464.5,
+                    "x": 404,
+                    "y": 163.5,
                     "lines": [
                         "Wall_03"
                     ],
@@ -314,8 +314,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 728,
-                    "y": 1398.5,
+                    "x": 165,
+                    "y": 97.5,
                     "lines": [
                         "Wall_11"
                     ],
@@ -327,8 +327,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 768,
-                    "y": 1398.5,
+                    "x": 125,
+                    "y": 97.5,
                     "lines": [
                         "Wall_11"
                     ],
@@ -340,8 +340,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 867,
-                    "y": 1303,
+                    "x": 26,
+                    "y": 2,
                     "lines": [
                         "Wall_12"
                     ],
@@ -353,8 +353,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 867,
-                    "y": 1446,
+                    "x": 26,
+                    "y": 145,
                     "lines": [
                         "Wall_12"
                     ],
@@ -366,8 +366,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 864,
-                    "y": 1445,
+                    "x": 29,
+                    "y": 144,
                     "lines": [
                         "Wall_13"
                     ],
@@ -379,8 +379,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 864,
-                    "y": 1480,
+                    "x": 29,
+                    "y": 179,
                     "lines": [
                         "Wall_13"
                     ],
@@ -392,8 +392,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 867,
-                    "y": 1480,
+                    "x": 26,
+                    "y": 179,
                     "lines": [
                         "Wall_14"
                     ],
@@ -405,8 +405,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 867,
-                    "y": 1635,
+                    "x": 26,
+                    "y": 334,
                     "lines": [
                         "Wall_14"
                     ],
@@ -418,8 +418,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 673,
-                    "y": 1648.5,
+                    "x": 220,
+                    "y": 347.5,
                     "lines": [
                         "Wall_17"
                     ],
@@ -431,8 +431,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 709,
-                    "y": 1648.5,
+                    "x": 184,
+                    "y": 347.5,
                     "lines": [
                         "Wall_17"
                     ],
@@ -444,8 +444,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 682,
-                    "y": 1464.5,
+                    "x": 211,
+                    "y": 163.5,
                     "lines": [
                         "Wall_03"
                     ],
@@ -457,8 +457,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 480,
-                    "y": 1463,
+                    "x": 413,
+                    "y": 162,
                     "lines": [
                         "Wall_19"
                     ],
@@ -470,8 +470,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 480,
-                    "y": 1643,
+                    "x": 413,
+                    "y": 342,
                     "lines": [
                         "Wall_19"
                     ],
@@ -483,8 +483,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 433,
-                    "y": 1325,
+                    "x": 460,
+                    "y": 24,
                     "lines": [
                         "Wall_21"
                     ],
@@ -496,8 +496,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 433,
-                    "y": 1462,
+                    "x": 460,
+                    "y": 161,
                     "lines": [
                         "Wall_21"
                     ],
@@ -509,8 +509,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 450,
-                    "y": 1307,
+                    "x": 443,
+                    "y": 6,
                     "lines": [
                         "Wall_23"
                     ],
@@ -522,8 +522,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 861,
-                    "y": 1307,
+                    "x": 32,
+                    "y": 6,
                     "lines": [
                         "Wall_23"
                     ],
@@ -535,8 +535,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 701,
-                    "y": 1464.5,
+                    "x": 192,
+                    "y": 163.5,
                     "lines": [
                         "Wall_24"
                     ],
@@ -548,8 +548,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 855,
-                    "y": 1464.5,
+                    "x": 38,
+                    "y": 163.5,
                     "lines": [
                         "Wall_24"
                     ],
@@ -561,8 +561,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 425,
-                    "y": 1474,
+                    "x": 468,
+                    "y": 173,
                     "lines": [],
                     "areas": [
                         "Balcony_01"
@@ -574,8 +574,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 371,
-                    "y": 1474,
+                    "x": 522,
+                    "y": 173,
                     "lines": [],
                     "areas": [
                         "Balcony_01",
@@ -588,8 +588,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 846,
-                    "y": 1648.5,
+                    "x": 47,
+                    "y": 347.5,
                     "lines": [
                         "Wall_15"
                     ],
@@ -601,8 +601,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 371,
-                    "y": 1481,
+                    "x": 522,
+                    "y": 180,
                     "lines": [],
                     "areas": [
                         "Balcony_01"
@@ -614,8 +614,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 424,
-                    "y": 1481,
+                    "x": 469,
+                    "y": 180,
                     "lines": [],
                     "areas": [
                         "Balcony_01"
@@ -627,8 +627,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 371,
-                    "y": 1305,
+                    "x": 522,
+                    "y": 4,
                     "lines": [],
                     "areas": [
                         "Balcony_02"
@@ -640,8 +640,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 377,
-                    "y": 1474,
+                    "x": 516,
+                    "y": 173,
                     "lines": [],
                     "areas": [
                         "Balcony_02"
@@ -653,8 +653,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 377,
-                    "y": 1305,
+                    "x": 516,
+                    "y": 4,
                     "lines": [],
                     "areas": [
                         "Balcony_02",
@@ -667,8 +667,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 424,
-                    "y": 1311,
+                    "x": 469,
+                    "y": 10,
                     "lines": [],
                     "areas": [
                         "Balcony_03"
@@ -680,8 +680,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 377,
-                    "y": 1311,
+                    "x": 516,
+                    "y": 10,
                     "lines": [],
                     "areas": [
                         "Balcony_03"
@@ -693,8 +693,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 424,
-                    "y": 1305,
+                    "x": 469,
+                    "y": 4,
                     "lines": [],
                     "areas": [
                         "Balcony_03"
@@ -706,8 +706,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 881,
-                    "y": 1648.5,
+                    "x": 12,
+                    "y": 347.5,
                     "lines": [
                         "Wall_15"
                     ],
@@ -719,8 +719,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 709,
-                    "y": 1652.5,
+                    "x": 184,
+                    "y": 351.5,
                     "lines": [
                         "Wall_16"
                     ],
@@ -732,8 +732,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 846,
-                    "y": 1652.5,
+                    "x": 47,
+                    "y": 351.5,
                     "lines": [
                         "Wall_16"
                     ],
@@ -745,8 +745,8 @@
                     "name": "Vertex",
                     "type": "vertex",
                     "prototype": "vertices",
-                    "x": 471,
-                    "y": 1652.5,
+                    "x": 422,
+                    "y": 351.5,
                     "lines": [
                         "Wall_18"
                     ],
@@ -772,7 +772,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 5
                         }
                     }
                 },
@@ -793,7 +793,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 19
                         }
                     }
                 },
@@ -816,7 +816,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 5
                         }
                     }
                 },
@@ -839,7 +839,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 4
                         }
                     }
                 },
@@ -860,7 +860,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 7
                         }
                     }
                 },
@@ -881,7 +881,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 5
                         }
                     }
                 },
@@ -902,7 +902,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 5
                         }
                     }
                 },
@@ -926,7 +926,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 6
                         }
                     }
                 },
@@ -947,7 +947,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 5
                         }
                     }
                 },
@@ -968,7 +968,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 6
                         }
                     }
                 },
@@ -989,7 +989,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 19
                         }
                     }
                 },
@@ -1012,7 +1012,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 12
                         }
                     }
                 },
@@ -1033,7 +1033,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 18
                         }
                     }
                 },
@@ -1054,7 +1054,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 12
                         }
                     }
                 },
@@ -1075,7 +1075,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 27
                         }
                     }
                 },
@@ -1098,7 +1098,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 19
                         }
                     }
                 },
@@ -1119,7 +1119,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 27
                         }
                     }
                 },
@@ -1142,7 +1142,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 19
                         }
                     }
                 },
@@ -1163,7 +1163,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 18
                         }
                     }
                 },
@@ -1184,7 +1184,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 19
                         }
                     }
                 },
@@ -1207,7 +1207,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 18
                         }
                     }
                 },
@@ -1228,7 +1228,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 24
                         }
                     }
                 },
@@ -1249,7 +1249,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 12
                         }
                     }
                 },
@@ -1272,7 +1272,7 @@
                         "textureA": "bricks",
                         "textureB": "bricks",
                         "thickness": {
-                            "length": 20
+                            "length": 5
                         }
                     }
                 }
@@ -1294,10 +1294,10 @@
                             "length": 215
                         },
                         "thickness": {
-                            "length": 30
+                            "length": 5
                         },
                         "width": {
-                            "length": 80
+                            "length": 40
                         }
                     }
                 },
@@ -1317,10 +1317,10 @@
                             "length": 215
                         },
                         "thickness": {
-                            "length": 30
+                            "length": 5
                         },
                         "width": {
-                            "length": 80
+                            "length": 57
                         }
                     }
                 },
@@ -1340,10 +1340,10 @@
                             "length": 215
                         },
                         "thickness": {
-                            "length": 30
+                            "length": 4
                         },
                         "width": {
-                            "length": 80
+                            "length": 34
                         }
                     }
                 },
@@ -1363,10 +1363,10 @@
                             "length": 215
                         },
                         "thickness": {
-                            "length": 30
+                            "length": 6
                         },
                         "width": {
-                            "length": 80
+                            "length": 30
                         }
                     }
                 },
@@ -1386,10 +1386,10 @@
                             "length": 215
                         },
                         "thickness": {
-                            "length": 30
+                            "length": 6
                         },
                         "width": {
-                            "length": 80
+                            "length": 32
                         }
                     }
                 },
@@ -1409,10 +1409,10 @@
                             "length": 215
                         },
                         "thickness": {
-                            "length": 30
+                            "length": 12
                         },
                         "width": {
-                            "length": 80
+                            "length": 44
                         }
                     }
                 },
@@ -1432,10 +1432,10 @@
                             "length": 215
                         },
                         "thickness": {
-                            "length": 30
+                            "length": 18
                         },
                         "width": {
-                            "length": 80
+                            "length": 33
                         }
                     }
                 },
@@ -1454,10 +1454,10 @@
                             "length": 100
                         },
                         "thickness": {
-                            "length": 10
+                            "length": 19
                         },
                         "width": {
-                            "length": 90
+                            "length": 77
                         }
                     }
                 },
@@ -1476,10 +1476,10 @@
                             "length": 100
                         },
                         "thickness": {
-                            "length": 10
+                            "length": 19
                         },
                         "width": {
-                            "length": 90
+                            "length": 94
                         }
                     }
                 }
@@ -1488,13 +1488,14 @@
                 "Balcony_01": {
                     "id": "Balcony_01",
                     "name": "Balcony_01",
-                    "type": "balcony",
+                    "type": "area",
                     "prototype": "areas",
                     "vertices": [
                         "v48",
                         "v49",
                         "v50",
-                        "v51"
+                        "v51",
+                        "v48"
                     ],
                     "holes": [],
                     "properties": {
@@ -1507,7 +1508,7 @@
                 "Balcony_02": {
                     "id": "Balcony_02",
                     "name": "Balcony_02",
-                    "type": "balcony",
+                    "type": "area",
                     "prototype": "areas",
                     "vertices": [
                         "v52",
@@ -1527,7 +1528,7 @@
                 "Balcony_03": {
                     "id": "Balcony_03",
                     "name": "Balcony_03",
-                    "type": "balcony",
+                    "type": "area",
                     "prototype": "areas",
                     "vertices": [
                         "v55",

@@ -15,16 +15,18 @@ import (
 const tolerance = 2.0 // Tolerance для объединения близких точек
 
 type GraphBuilder struct {
-	vertices map[string]models.Vertex
-	lines    map[string]models.Line
-	vertexID int
+	vertices  map[string]models.Vertex
+	lines     map[string]models.Line
+	vertexID  int
+	transform func(models.Point) models.Point
 }
 
 func NewGraphBuilder() *GraphBuilder {
 	return &GraphBuilder{
-		vertices: make(map[string]models.Vertex),
-		lines:    make(map[string]models.Line),
-		vertexID: 0,
+		vertices:  make(map[string]models.Vertex),
+		lines:     make(map[string]models.Line),
+		vertexID:  0,
+		transform: func(p models.Point) models.Point { return p },
 	}
 }
 
@@ -52,6 +54,8 @@ func (g *GraphBuilder) addRectWall(id string, rect models.RectGeometry) error {
 	// Rect преобразуем в линию (используем длинную сторону)
 	var p1, p2 models.Point
 
+	thickness := math.Min(rect.Width, rect.Height)
+
 	if rect.Width > rect.Height {
 		// Горизонтальная линия
 		p1 = models.Point{X: rect.X, Y: rect.Y + rect.Height/2}
@@ -61,6 +65,9 @@ func (g *GraphBuilder) addRectWall(id string, rect models.RectGeometry) error {
 		p1 = models.Point{X: rect.X + rect.Width/2, Y: rect.Y}
 		p2 = models.Point{X: rect.X + rect.Width/2, Y: rect.Y + rect.Height}
 	}
+
+	p1 = g.transform(p1)
+	p2 = g.transform(p2)
 
 	v1ID := g.findOrCreateVertex(p1)
 	v2ID := g.findOrCreateVertex(p2)
@@ -72,7 +79,7 @@ func (g *GraphBuilder) addRectWall(id string, rect models.RectGeometry) error {
 		Prototype:  "lines",
 		Vertices:   []string{v1ID, v2ID},
 		Holes:      []string{},
-		Properties: defaultWallProperties(),
+		Properties: defaultWallProperties(thickness),
 	}
 
 	g.attachLineToVertex(v1ID, id)
@@ -112,6 +119,7 @@ func (g *GraphBuilder) addPathWall(id string, path models.PathGeometry) error {
 	width := maxX - minX
 	height := maxY - minY
 
+	thickness := math.Min(width, height)
 	var p1, p2 models.Point
 	switch {
 	case width == 0 && height == 0:
@@ -128,6 +136,9 @@ func (g *GraphBuilder) addPathWall(id string, path models.PathGeometry) error {
 		p2 = models.Point{X: midX, Y: maxY}
 	}
 
+	p1 = g.transform(p1)
+	p2 = g.transform(p2)
+
 	v1ID := g.findOrCreateVertex(p1)
 	v2ID := g.findOrCreateVertex(p2)
 
@@ -138,7 +149,7 @@ func (g *GraphBuilder) addPathWall(id string, path models.PathGeometry) error {
 		Prototype:  "lines",
 		Vertices:   []string{v1ID, v2ID},
 		Holes:      []string{},
-		Properties: defaultWallProperties(),
+		Properties: defaultWallProperties(thickness),
 	}
 
 	g.attachLineToVertex(v1ID, id)
@@ -233,11 +244,20 @@ func contains(list []string, target string) bool {
 	return false
 }
 
-func defaultWallProperties() map[string]any {
+func defaultWallProperties(thickness float64) map[string]any {
 	return map[string]any{
 		"height":    map[string]any{"length": 300.0},
-		"thickness": map[string]any{"length": 20.0},
+		"thickness": map[string]any{"length": thickness},
 		"textureA":  "bricks",
 		"textureB":  "bricks",
 	}
+}
+
+// SetTransform задает функцию трансформации координат (например, зеркалирование).
+func (g *GraphBuilder) SetTransform(f func(models.Point) models.Point) {
+	if f == nil {
+		g.transform = func(p models.Point) models.Point { return p }
+		return
+	}
+	g.transform = f
 }

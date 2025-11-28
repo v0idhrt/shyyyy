@@ -17,6 +17,7 @@ import (
 type Converter struct {
 	elements []models.SVGElement
 	builder  *graph.GraphBuilder
+	bbox     *boundingBox
 }
 
 func New() *Converter {
@@ -33,6 +34,14 @@ func (c *Converter) Convert(r io.Reader) (*models.Scene, error) {
 		return nil, fmt.Errorf("parse SVG: %w", err)
 	}
 	c.elements = elements
+
+	// Bounding box для трансформаций (отзеркалить и нормализовать в (0,0))
+	box, err := calculateBoundingBox(elements)
+	if err != nil {
+		return nil, fmt.Errorf("bbox: %w", err)
+	}
+	c.bbox = box
+	c.builder.SetTransform(c.mirrorTransform())
 
 	// Разделяем элементы по типам
 	var walls, doors, windows, rooms, balconies []models.SVGElement
@@ -130,7 +139,7 @@ func (c *Converter) createHole(elem models.SVGElement, holeType string) *models.
 		Prototype:  "holes",
 		Line:       lineID,
 		Offset:     offset,
-		Properties: defaultHoleProperties(holeType),
+		Properties: holeProperties(elem, holeType),
 	}
 
 	// Привязываем hole к линии
@@ -148,14 +157,28 @@ func (c *Converter) createArea(elem models.SVGElement, areaType string, target m
 
 	vertexIDs := c.builder.AddAreaVertices(points, elem.ID)
 
+	areaTypeName := areaType
+	if areaType == "balcony" {
+		areaTypeName = "area" // используем базовый тип каталога
+	}
+
 	area := models.Area{
 		ID:         elem.ID,
 		Name:       elem.ID,
-		Type:       areaType,
+		Type:       areaTypeName,
 		Prototype:  "areas",
 		Vertices:   vertexIDs,
 		Holes:      []string{},
 		Properties: defaultAreaProperties(),
+	}
+
+	// замыкаем контур
+	if len(area.Vertices) > 2 {
+		first := area.Vertices[0]
+		last := area.Vertices[len(area.Vertices)-1]
+		if first != last {
+			area.Vertices = append(area.Vertices, first)
+		}
 	}
 
 	target[elem.ID] = area
@@ -168,10 +191,12 @@ func (c *Converter) createArea(elem models.SVGElement, areaType string, target m
 func (c *Converter) getElementCenter(elem models.SVGElement) *models.Point {
 	switch geom := elem.Geometry.(type) {
 	case models.RectGeometry:
-		return &models.Point{
+		p := models.Point{
 			X: geom.X + geom.Width/2,
 			Y: geom.Y + geom.Height/2,
 		}
+		t := c.mirrorTransform()(p)
+		return &t
 	case models.PathGeometry:
 		points, err := parser.ParsePath(geom.D)
 		if err != nil || len(points) == 0 {
@@ -183,10 +208,12 @@ func (c *Converter) getElementCenter(elem models.SVGElement) *models.Point {
 			sumX += p.X
 			sumY += p.Y
 		}
-		return &models.Point{
+		p := models.Point{
 			X: sumX / float64(len(points)),
 			Y: sumY / float64(len(points)),
 		}
+		t := c.mirrorTransform()(p)
+		return &t
 	}
 	return nil
 }
@@ -206,14 +233,14 @@ func (c *Converter) getElementPoints(elem models.SVGElement) ([]models.Point, er
 				points = points[:len(points)-1]
 			}
 		}
-		return points, nil
+		return c.applyTransform(points), nil
 	case models.RectGeometry:
-		return []models.Point{
+		return c.applyTransform([]models.Point{
 			{X: geom.X, Y: geom.Y},
 			{X: geom.X + geom.Width, Y: geom.Y},
 			{X: geom.X + geom.Width, Y: geom.Y + geom.Height},
 			{X: geom.X, Y: geom.Y + geom.Height},
-		}, nil
+		}), nil
 	}
 	return nil, fmt.Errorf("unknown geometry type")
 }
@@ -278,28 +305,6 @@ func pointToLineDistance(p models.Point, v1, v2 models.Vertex) (float64, float64
 // Defaults
 // ============================================================
 
-func defaultHoleProperties(holeType string) map[string]any {
-	switch holeType {
-	case "door":
-		return map[string]any{
-			"width":           map[string]any{"length": 80.0},
-			"height":          map[string]any{"length": 215.0},
-			"altitude":        map[string]any{"length": 0.0},
-			"thickness":       map[string]any{"length": 30.0},
-			"flip_orizzontal": false,
-		}
-	case "window":
-		return map[string]any{
-			"width":     map[string]any{"length": 90.0},
-			"height":    map[string]any{"length": 100.0},
-			"altitude":  map[string]any{"length": 90.0},
-			"thickness": map[string]any{"length": 10.0},
-		}
-	default:
-		return map[string]any{}
-	}
-}
-
 func defaultAreaProperties() map[string]any {
 	return map[string]any{
 		"patternColor": "#F5F5F5",
@@ -334,4 +339,146 @@ func defaultGuides() models.Guides {
 		Vertical:   map[string]any{},
 		Circular:   map[string]any{},
 	}
+}
+
+// Вычисляет свойства проемов на основе геометрии (ширина/толщина), остальное — дефолты.
+func holeProperties(elem models.SVGElement, holeType string) map[string]any {
+	width := 80.0
+	thickness := 30.0
+
+	switch geom := elem.Geometry.(type) {
+	case models.RectGeometry:
+		w := math.Max(geom.Width, geom.Height)
+		t := math.Min(geom.Width, geom.Height)
+		if w > 0 {
+			width = w
+		}
+		if t > 0 {
+			thickness = t
+		}
+	case models.PathGeometry:
+		points, err := parser.ParsePath(geom.D)
+		if err == nil && len(points) > 0 {
+			minX, maxX := points[0].X, points[0].X
+			minY, maxY := points[0].Y, points[0].Y
+			for _, p := range points {
+				if p.X < minX {
+					minX = p.X
+				}
+				if p.X > maxX {
+					maxX = p.X
+				}
+				if p.Y < minY {
+					minY = p.Y
+				}
+				if p.Y > maxY {
+					maxY = p.Y
+				}
+			}
+			w := math.Max(maxX-minX, maxY-minY)
+			t := math.Min(maxX-minX, maxY-minY)
+			if w > 0 {
+				width = w
+			}
+			if t > 0 {
+				thickness = t
+			}
+		}
+	}
+
+	if holeType == "window" {
+		return map[string]any{
+			"width":     map[string]any{"length": width},
+			"height":    map[string]any{"length": 100.0},
+			"altitude":  map[string]any{"length": 90.0},
+			"thickness": map[string]any{"length": thickness},
+		}
+	}
+
+	// door
+	return map[string]any{
+		"width":           map[string]any{"length": width},
+		"height":          map[string]any{"length": 215.0},
+		"altitude":        map[string]any{"length": 0.0},
+		"thickness":       map[string]any{"length": thickness},
+		"flip_orizzontal": false,
+	}
+}
+
+// ============================================================
+// Coordinate transforms
+// ============================================================
+
+type boundingBox struct {
+	minX float64
+	maxX float64
+	minY float64
+	maxY float64
+}
+
+func calculateBoundingBox(elems []models.SVGElement) (*boundingBox, error) {
+	box := &boundingBox{
+		minX: math.MaxFloat64,
+		maxX: -math.MaxFloat64,
+		minY: math.MaxFloat64,
+		maxY: -math.MaxFloat64,
+	}
+
+	update := func(p models.Point) {
+		if p.X < box.minX {
+			box.minX = p.X
+		}
+		if p.X > box.maxX {
+			box.maxX = p.X
+		}
+		if p.Y < box.minY {
+			box.minY = p.Y
+		}
+		if p.Y > box.maxY {
+			box.maxY = p.Y
+		}
+	}
+
+	for _, elem := range elems {
+		switch geom := elem.Geometry.(type) {
+		case models.RectGeometry:
+			update(models.Point{X: geom.X, Y: geom.Y})
+			update(models.Point{X: geom.X + geom.Width, Y: geom.Y + geom.Height})
+		case models.PathGeometry:
+			points, err := parser.ParsePath(geom.D)
+			if err != nil {
+				return nil, err
+			}
+			for _, p := range points {
+				update(p)
+			}
+		}
+	}
+
+	return box, nil
+}
+
+func (c *Converter) mirrorTransform() func(models.Point) models.Point {
+	if c.bbox == nil {
+		return func(p models.Point) models.Point { return p }
+	}
+
+	box := *c.bbox
+
+	return func(p models.Point) models.Point {
+		// Зеркалим по X, нормализуем в (0,0)
+		x := (box.maxX + box.minX) - p.X
+		x -= box.minX
+		y := p.Y - box.minY
+		return models.Point{X: x, Y: y}
+	}
+}
+
+func (c *Converter) applyTransform(points []models.Point) []models.Point {
+	tf := c.mirrorTransform()
+	out := make([]models.Point, 0, len(points))
+	for _, p := range points {
+		out = append(out, tf(p))
+	}
+	return out
 }
