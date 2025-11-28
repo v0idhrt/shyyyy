@@ -468,8 +468,9 @@ func (c *Converter) mirrorTransform() func(models.Point) models.Point {
 	return func(p models.Point) models.Point {
 		// Зеркалим по X, нормализуем в (0,0)
 		x := (box.maxX + box.minX) - p.X
+		y := p.Y
 		x -= box.minX
-		y := p.Y - box.minY
+		y -= box.minY
 		return models.Point{X: x, Y: y}
 	}
 }
