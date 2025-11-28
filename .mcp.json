@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "uv",
+      "args": [
+        "run",
+        "postgres-mcp",
+        "--access-mode=unrestricted"
+      ],
+      "env": {
+        "DATABASE_URI": "postgresql://voidtrace:o9yGnV9KONRR@94.228.126.28:5432/voidtrace_db"
+      }
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "ctx7sk-7333234e-9c64-4617-ba7b-3ecb5caf79d4"
+      }
+    },
+    "codex-cli": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "codex-mcp-server"
+      ],
+      "env": {}
+    }
+  }
+}

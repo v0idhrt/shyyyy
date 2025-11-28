@@ -1,0 +1,1598 @@
+{
+    "unit": "cm",
+    "layers": {
+        "layer-1": {
+            "id": "layer-1",
+            "altitude": 0,
+            "order": 0,
+            "opacity": 1,
+            "name": "default",
+            "visible": true,
+            "vertices": {
+                "v1": {
+                    "id": "v1",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 691.5,
+                    "y": 1462,
+                    "lines": [
+                        "Wall_02"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v10": {
+                    "id": "v10",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 674,
+                    "y": 1652.5,
+                    "lines": [
+                        "Wall_18"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v11": {
+                    "id": "v11",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 424,
+                    "y": 1471.5,
+                    "lines": [
+                        "Wall_20"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v12": {
+                    "id": "v12",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 472,
+                    "y": 1471.5,
+                    "lines": [
+                        "Wall_20"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v13": {
+                    "id": "v13",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 424,
+                    "y": 1313,
+                    "lines": [
+                        "Wall_22"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v14": {
+                    "id": "v14",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 450,
+                    "y": 1313,
+                    "lines": [
+                        "Wall_22"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v15": {
+                    "id": "v15",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 699.5,
+                    "y": 1497,
+                    "lines": [
+                        "Wall_01"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v16": {
+                    "id": "v16",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 699.5,
+                    "y": 1635,
+                    "lines": [
+                        "Wall_01"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v17": {
+                    "id": "v17",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 613,
+                    "y": 1414,
+                    "lines": [
+                        "Wall_04",
+                        "Wall_05"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v18": {
+                    "id": "v18",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 613,
+                    "y": 1462,
+                    "lines": [
+                        "Wall_04"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v19": {
+                    "id": "v19",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 611.5,
+                    "y": 1313,
+                    "lines": [
+                        "Wall_05"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v2": {
+                    "id": "v2",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 691.5,
+                    "y": 1498,
+                    "lines": [
+                        "Wall_02"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v20": {
+                    "id": "v20",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 615,
+                    "y": 1342.5,
+                    "lines": [
+                        "Wall_06"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v21": {
+                    "id": "v21",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 638,
+                    "y": 1342.5,
+                    "lines": [
+                        "Wall_06"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v22": {
+                    "id": "v22",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 635.5,
+                    "y": 1345,
+                    "lines": [
+                        "Wall_07"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v23": {
+                    "id": "v23",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 635.5,
+                    "y": 1408,
+                    "lines": [
+                        "Wall_07"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v24": {
+                    "id": "v24",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 615,
+                    "y": 1411,
+                    "lines": [
+                        "Wall_08"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v25": {
+                    "id": "v25",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 768,
+                    "y": 1411,
+                    "lines": [
+                        "Wall_08"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v26": {
+                    "id": "v26",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 679.5,
+                    "y": 1313,
+                    "lines": [
+                        "Wall_09"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v27": {
+                    "id": "v27",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 679.5,
+                    "y": 1408,
+                    "lines": [
+                        "Wall_09"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v28": {
+                    "id": "v28",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 765,
+                    "y": 1313,
+                    "lines": [
+                        "Wall_10"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v29": {
+                    "id": "v29",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 765,
+                    "y": 1390,
+                    "lines": [
+                        "Wall_10"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v3": {
+                    "id": "v3",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 489,
+                    "y": 1464.5,
+                    "lines": [
+                        "Wall_03"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v30": {
+                    "id": "v30",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 728,
+                    "y": 1398.5,
+                    "lines": [
+                        "Wall_11"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v31": {
+                    "id": "v31",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 768,
+                    "y": 1398.5,
+                    "lines": [
+                        "Wall_11"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v32": {
+                    "id": "v32",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 867,
+                    "y": 1303,
+                    "lines": [
+                        "Wall_12"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v33": {
+                    "id": "v33",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 867,
+                    "y": 1446,
+                    "lines": [
+                        "Wall_12"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v34": {
+                    "id": "v34",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 864,
+                    "y": 1445,
+                    "lines": [
+                        "Wall_13"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v35": {
+                    "id": "v35",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 864,
+                    "y": 1480,
+                    "lines": [
+                        "Wall_13"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v36": {
+                    "id": "v36",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 867,
+                    "y": 1480,
+                    "lines": [
+                        "Wall_14"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v37": {
+                    "id": "v37",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 867,
+                    "y": 1635,
+                    "lines": [
+                        "Wall_14"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v38": {
+                    "id": "v38",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 673,
+                    "y": 1648.5,
+                    "lines": [
+                        "Wall_17"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v39": {
+                    "id": "v39",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 709,
+                    "y": 1648.5,
+                    "lines": [
+                        "Wall_17"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v4": {
+                    "id": "v4",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 682,
+                    "y": 1464.5,
+                    "lines": [
+                        "Wall_03"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v40": {
+                    "id": "v40",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 480,
+                    "y": 1463,
+                    "lines": [
+                        "Wall_19"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v41": {
+                    "id": "v41",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 480,
+                    "y": 1643,
+                    "lines": [
+                        "Wall_19"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v42": {
+                    "id": "v42",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 433,
+                    "y": 1325,
+                    "lines": [
+                        "Wall_21"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v43": {
+                    "id": "v43",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 433,
+                    "y": 1462,
+                    "lines": [
+                        "Wall_21"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v44": {
+                    "id": "v44",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 450,
+                    "y": 1307,
+                    "lines": [
+                        "Wall_23"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v45": {
+                    "id": "v45",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 861,
+                    "y": 1307,
+                    "lines": [
+                        "Wall_23"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v46": {
+                    "id": "v46",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 701,
+                    "y": 1464.5,
+                    "lines": [
+                        "Wall_24"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v47": {
+                    "id": "v47",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 855,
+                    "y": 1464.5,
+                    "lines": [
+                        "Wall_24"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v48": {
+                    "id": "v48",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 425,
+                    "y": 1474,
+                    "lines": [],
+                    "areas": [
+                        "Balcony_01"
+                    ],
+                    "selected": false
+                },
+                "v49": {
+                    "id": "v49",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 371,
+                    "y": 1474,
+                    "lines": [],
+                    "areas": [
+                        "Balcony_01",
+                        "Balcony_02"
+                    ],
+                    "selected": false
+                },
+                "v5": {
+                    "id": "v5",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 846,
+                    "y": 1648.5,
+                    "lines": [
+                        "Wall_15"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v50": {
+                    "id": "v50",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 371,
+                    "y": 1481,
+                    "lines": [],
+                    "areas": [
+                        "Balcony_01"
+                    ],
+                    "selected": false
+                },
+                "v51": {
+                    "id": "v51",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 424,
+                    "y": 1481,
+                    "lines": [],
+                    "areas": [
+                        "Balcony_01"
+                    ],
+                    "selected": false
+                },
+                "v52": {
+                    "id": "v52",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 371,
+                    "y": 1305,
+                    "lines": [],
+                    "areas": [
+                        "Balcony_02"
+                    ],
+                    "selected": false
+                },
+                "v53": {
+                    "id": "v53",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 377,
+                    "y": 1474,
+                    "lines": [],
+                    "areas": [
+                        "Balcony_02"
+                    ],
+                    "selected": false
+                },
+                "v54": {
+                    "id": "v54",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 377,
+                    "y": 1305,
+                    "lines": [],
+                    "areas": [
+                        "Balcony_02",
+                        "Balcony_03"
+                    ],
+                    "selected": false
+                },
+                "v55": {
+                    "id": "v55",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 424,
+                    "y": 1311,
+                    "lines": [],
+                    "areas": [
+                        "Balcony_03"
+                    ],
+                    "selected": false
+                },
+                "v56": {
+                    "id": "v56",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 377,
+                    "y": 1311,
+                    "lines": [],
+                    "areas": [
+                        "Balcony_03"
+                    ],
+                    "selected": false
+                },
+                "v57": {
+                    "id": "v57",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 424,
+                    "y": 1305,
+                    "lines": [],
+                    "areas": [
+                        "Balcony_03"
+                    ],
+                    "selected": false
+                },
+                "v6": {
+                    "id": "v6",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 881,
+                    "y": 1648.5,
+                    "lines": [
+                        "Wall_15"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v7": {
+                    "id": "v7",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 709,
+                    "y": 1652.5,
+                    "lines": [
+                        "Wall_16"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v8": {
+                    "id": "v8",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 846,
+                    "y": 1652.5,
+                    "lines": [
+                        "Wall_16"
+                    ],
+                    "areas": [],
+                    "selected": false
+                },
+                "v9": {
+                    "id": "v9",
+                    "name": "Vertex",
+                    "type": "vertex",
+                    "prototype": "vertices",
+                    "x": 471,
+                    "y": 1652.5,
+                    "lines": [
+                        "Wall_18"
+                    ],
+                    "areas": [],
+                    "selected": false
+                }
+            },
+            "lines": {
+                "Wall_01": {
+                    "id": "Wall_01",
+                    "name": "Wall_01",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v15",
+                        "v16"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_02": {
+                    "id": "Wall_02",
+                    "name": "Wall_02",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v1",
+                        "v2"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_03": {
+                    "id": "Wall_03",
+                    "name": "Wall_03",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v3",
+                        "v4"
+                    ],
+                    "holes": [
+                        "Door_02"
+                    ],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_04": {
+                    "id": "Wall_04",
+                    "name": "Wall_04",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v17",
+                        "v18"
+                    ],
+                    "holes": [
+                        "Door_03"
+                    ],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_05": {
+                    "id": "Wall_05",
+                    "name": "Wall_05",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v19",
+                        "v17"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_06": {
+                    "id": "Wall_06",
+                    "name": "Wall_06",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v20",
+                        "v21"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_07": {
+                    "id": "Wall_07",
+                    "name": "Wall_07",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v22",
+                        "v23"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_08": {
+                    "id": "Wall_08",
+                    "name": "Wall_08",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v24",
+                        "v25"
+                    ],
+                    "holes": [
+                        "Door_04",
+                        "Door_05"
+                    ],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_09": {
+                    "id": "Wall_09",
+                    "name": "Wall_09",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v26",
+                        "v27"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_10": {
+                    "id": "Wall_10",
+                    "name": "Wall_10",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v28",
+                        "v29"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_11": {
+                    "id": "Wall_11",
+                    "name": "Wall_11",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v30",
+                        "v31"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_12": {
+                    "id": "Wall_12",
+                    "name": "Wall_12",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v32",
+                        "v33"
+                    ],
+                    "holes": [
+                        "Door_06"
+                    ],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_13": {
+                    "id": "Wall_13",
+                    "name": "Wall_13",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v34",
+                        "v35"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_14": {
+                    "id": "Wall_14",
+                    "name": "Wall_14",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v36",
+                        "v37"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_15": {
+                    "id": "Wall_15",
+                    "name": "Wall_15",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v5",
+                        "v6"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_16": {
+                    "id": "Wall_16",
+                    "name": "Wall_16",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v7",
+                        "v8"
+                    ],
+                    "holes": [
+                        "Window_01"
+                    ],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_17": {
+                    "id": "Wall_17",
+                    "name": "Wall_17",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v38",
+                        "v39"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_18": {
+                    "id": "Wall_18",
+                    "name": "Wall_18",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v9",
+                        "v10"
+                    ],
+                    "holes": [
+                        "Window_02"
+                    ],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_19": {
+                    "id": "Wall_19",
+                    "name": "Wall_19",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v40",
+                        "v41"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_20": {
+                    "id": "Wall_20",
+                    "name": "Wall_20",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v11",
+                        "v12"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_21": {
+                    "id": "Wall_21",
+                    "name": "Wall_21",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v42",
+                        "v43"
+                    ],
+                    "holes": [
+                        "Door_07"
+                    ],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_22": {
+                    "id": "Wall_22",
+                    "name": "Wall_22",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v13",
+                        "v14"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_23": {
+                    "id": "Wall_23",
+                    "name": "Wall_23",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v44",
+                        "v45"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                },
+                "Wall_24": {
+                    "id": "Wall_24",
+                    "name": "Wall_24",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "vertices": [
+                        "v46",
+                        "v47"
+                    ],
+                    "holes": [
+                        "Door_01"
+                    ],
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks",
+                        "thickness": {
+                            "length": 20
+                        }
+                    }
+                }
+            },
+            "holes": {
+                "Door_01": {
+                    "id": "Door_01",
+                    "name": "Door_01",
+                    "type": "door",
+                    "prototype": "holes",
+                    "offset": 0.3051948051948052,
+                    "line": "Wall_24",
+                    "properties": {
+                        "altitude": {
+                            "length": 0
+                        },
+                        "flip_orizzontal": false,
+                        "height": {
+                            "length": 215
+                        },
+                        "thickness": {
+                            "length": 30
+                        },
+                        "width": {
+                            "length": 80
+                        }
+                    }
+                },
+                "Door_02": {
+                    "id": "Door_02",
+                    "name": "Door_02",
+                    "type": "door",
+                    "prototype": "holes",
+                    "offset": 0.8756476683937824,
+                    "line": "Wall_03",
+                    "properties": {
+                        "altitude": {
+                            "length": 0
+                        },
+                        "flip_orizzontal": false,
+                        "height": {
+                            "length": 215
+                        },
+                        "thickness": {
+                            "length": 30
+                        },
+                        "width": {
+                            "length": 80
+                        }
+                    }
+                },
+                "Door_03": {
+                    "id": "Door_03",
+                    "name": "Door_03",
+                    "type": "door",
+                    "prototype": "holes",
+                    "offset": 0.4722222222222238,
+                    "line": "Wall_04",
+                    "properties": {
+                        "altitude": {
+                            "length": 0
+                        },
+                        "flip_orizzontal": false,
+                        "height": {
+                            "length": 215
+                        },
+                        "thickness": {
+                            "length": 30
+                        },
+                        "width": {
+                            "length": 80
+                        }
+                    }
+                },
+                "Door_04": {
+                    "id": "Door_04",
+                    "name": "Door_04",
+                    "type": "door",
+                    "prototype": "holes",
+                    "offset": 0.24836601307189543,
+                    "line": "Wall_08",
+                    "properties": {
+                        "altitude": {
+                            "length": 0
+                        },
+                        "flip_orizzontal": false,
+                        "height": {
+                            "length": 215
+                        },
+                        "thickness": {
+                            "length": 30
+                        },
+                        "width": {
+                            "length": 80
+                        }
+                    }
+                },
+                "Door_05": {
+                    "id": "Door_05",
+                    "name": "Door_05",
+                    "type": "door",
+                    "prototype": "holes",
+                    "offset": 0.5925925925925923,
+                    "line": "Wall_08",
+                    "properties": {
+                        "altitude": {
+                            "length": 0
+                        },
+                        "flip_orizzontal": false,
+                        "height": {
+                            "length": 215
+                        },
+                        "thickness": {
+                            "length": 30
+                        },
+                        "width": {
+                            "length": 80
+                        }
+                    }
+                },
+                "Door_06": {
+                    "id": "Door_06",
+                    "name": "Door_06",
+                    "type": "door",
+                    "prototype": "holes",
+                    "offset": 0.3240093240093235,
+                    "line": "Wall_12",
+                    "properties": {
+                        "altitude": {
+                            "length": 0
+                        },
+                        "flip_orizzontal": false,
+                        "height": {
+                            "length": 215
+                        },
+                        "thickness": {
+                            "length": 30
+                        },
+                        "width": {
+                            "length": 80
+                        }
+                    }
+                },
+                "Door_07": {
+                    "id": "Door_07",
+                    "name": "Door_07",
+                    "type": "door",
+                    "prototype": "holes",
+                    "offset": 0.635036496350365,
+                    "line": "Wall_21",
+                    "properties": {
+                        "altitude": {
+                            "length": 0
+                        },
+                        "flip_orizzontal": false,
+                        "height": {
+                            "length": 215
+                        },
+                        "thickness": {
+                            "length": 30
+                        },
+                        "width": {
+                            "length": 80
+                        }
+                    }
+                },
+                "Window_01": {
+                    "id": "Window_01",
+                    "name": "Window_01",
+                    "type": "window",
+                    "prototype": "holes",
+                    "offset": 0.9215328467153284,
+                    "line": "Wall_16",
+                    "properties": {
+                        "altitude": {
+                            "length": 90
+                        },
+                        "height": {
+                            "length": 100
+                        },
+                        "thickness": {
+                            "length": 10
+                        },
+                        "width": {
+                            "length": 90
+                        }
+                    }
+                },
+                "Window_02": {
+                    "id": "Window_02",
+                    "name": "Window_02",
+                    "type": "window",
+                    "prototype": "holes",
+                    "offset": 0.574384236453202,
+                    "line": "Wall_18",
+                    "properties": {
+                        "altitude": {
+                            "length": 90
+                        },
+                        "height": {
+                            "length": 100
+                        },
+                        "thickness": {
+                            "length": 10
+                        },
+                        "width": {
+                            "length": 90
+                        }
+                    }
+                }
+            },
+            "areas": {
+                "Balcony_01": {
+                    "id": "Balcony_01",
+                    "name": "Balcony_01",
+                    "type": "balcony",
+                    "prototype": "areas",
+                    "vertices": [
+                        "v48",
+                        "v49",
+                        "v50",
+                        "v51"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "patternColor": "#F5F5F5",
+                        "thickness": {
+                            "length": 0
+                        }
+                    }
+                },
+                "Balcony_02": {
+                    "id": "Balcony_02",
+                    "name": "Balcony_02",
+                    "type": "balcony",
+                    "prototype": "areas",
+                    "vertices": [
+                        "v52",
+                        "v49",
+                        "v53",
+                        "v54",
+                        "v52"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "patternColor": "#F5F5F5",
+                        "thickness": {
+                            "length": 0
+                        }
+                    }
+                },
+                "Balcony_03": {
+                    "id": "Balcony_03",
+                    "name": "Balcony_03",
+                    "type": "balcony",
+                    "prototype": "areas",
+                    "vertices": [
+                        "v55",
+                        "v56",
+                        "v54",
+                        "v57",
+                        "v55"
+                    ],
+                    "holes": [],
+                    "properties": {
+                        "patternColor": "#F5F5F5",
+                        "thickness": {
+                            "length": 0
+                        }
+                    }
+                }
+            },
+            "items": {},
+            "selected": {
+                "vertices": [],
+                "lines": [],
+                "holes": [],
+                "areas": [],
+                "items": []
+            }
+        }
+    },
+    "selectedLayer": "layer-1",
+    "grids": {
+        "h1": {
+            "id": "h1",
+            "type": "horizontal-streak",
+            "properties": {
+                "colors": [
+                    "#808080",
+                    "#ddd",
+                    "#ddd",
+                    "#ddd",
+                    "#ddd"
+                ],
+                "step": 20
+            }
+        },
+        "v1": {
+            "id": "v1",
+            "type": "vertical-streak",
+            "properties": {
+                "colors": [
+                    "#808080",
+                    "#ddd",
+                    "#ddd",
+                    "#ddd",
+                    "#ddd"
+                ],
+                "step": 20
+            }
+        }
+    },
+    "groups": {},
+    "width": 3000,
+    "height": 2000,
+    "meta": {},
+    "guides": {
+        "horizontal": {},
+        "vertical": {},
+        "circular": {}
+    }
+}
