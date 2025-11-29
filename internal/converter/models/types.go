@@ -93,6 +93,20 @@ type Area struct {
 	Misc       map[string]any `json:"misc,omitempty"`
 }
 
+type Item struct {
+	ID         string         `json:"id"`
+	Name       string         `json:"name"`
+	Type       string         `json:"type"`
+	Prototype  string         `json:"prototype"`
+	X          float64        `json:"x"`
+	Y          float64        `json:"y"`
+	Rotation   float64        `json:"rotation"`
+	Selected   bool           `json:"selected"`
+	Visible    bool           `json:"visible"`
+	Properties map[string]any `json:"properties"`
+	Misc       map[string]any `json:"misc,omitempty"`
+}
+
 type Grid struct {
 	ID         string         `json:"id"`
 	Type       string         `json:"type"`
@@ -116,7 +130,7 @@ type Layer struct {
 	Lines    map[string]Line   `json:"lines"`
 	Holes    map[string]Hole   `json:"holes"`
 	Areas    map[string]Area   `json:"areas"`
-	Items    map[string]any    `json:"items"`
+	Items    map[string]Item   `json:"items"`
 	Selected ElementsSet       `json:"selected"`
 }
 

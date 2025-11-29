@@ -85,12 +85,11 @@ func (c *Converter) Convert(r io.Reader) (*models.Scene, error) {
 
 	// Создаем areas (комнаты + балконы)
 	areas := make(map[string]models.Area)
+	items := make(map[string]models.Item)
 	for _, room := range rooms {
 		c.createArea(room, "room", areas)
 	}
-	for _, balcony := range balconies {
-		c.createArea(balcony, "balcony", areas)
-	}
+	c.createBalconyItems(balconies, items)
 
 	// Собираем scene
 	layer := models.Layer{
@@ -104,7 +103,7 @@ func (c *Converter) Convert(r io.Reader) (*models.Scene, error) {
 		Lines:    c.builder.GetLines(),
 		Holes:    holes,
 		Areas:    areas,
-		Items:    map[string]any{},
+		Items:    items,
 		Selected: models.ElementsSet{Vertices: []string{}, Lines: []string{}, Holes: []string{}, Areas: []string{}, Items: []string{}},
 	}
 
@@ -189,6 +188,64 @@ func (c *Converter) createArea(elem models.SVGElement, areaType string, target m
 	}
 
 	target[elem.ID] = area
+}
+
+// createBalconyItems группирует все balcony элементы в один item (как в demo).
+func (c *Converter) createBalconyItems(elems []models.SVGElement, target map[string]models.Item) {
+	if len(elems) == 0 {
+		return
+	}
+
+	var allPoints []models.Point
+	for _, elem := range elems {
+		points, err := c.getElementPoints(elem)
+		if err != nil || len(points) == 0 {
+			continue
+		}
+		allPoints = append(allPoints, points...)
+	}
+	if len(allPoints) == 0 {
+		return
+	}
+
+	minX, maxX := allPoints[0].X, allPoints[0].X
+	minY, maxY := allPoints[0].Y, allPoints[0].Y
+	for _, p := range allPoints {
+		if p.X < minX {
+			minX = p.X
+		}
+		if p.X > maxX {
+			maxX = p.X
+		}
+		if p.Y < minY {
+			minY = p.Y
+		}
+		if p.Y > maxY {
+			maxY = p.Y
+		}
+	}
+
+	width := maxX - minX
+	depth := maxY - minY
+	cx := (minX + maxX) / 2
+	cy := (minY + maxY) / 2
+
+	itemID := elems[0].ID
+
+	item := models.Item{
+		ID:         itemID,
+		Name:       "Balcony",
+		Type:       "balcony",
+		Prototype:  "items",
+		X:          cx,
+		Y:          cy,
+		Rotation:   0,
+		Selected:   false,
+		Visible:    true,
+		Properties: defaultBalconyProperties(width, depth),
+	}
+
+	target[itemID] = item
 }
 
 // ============================================================
@@ -429,6 +486,16 @@ func holeProperties(elem models.SVGElement, holeType string, lineThickness float
 		"altitude":        map[string]any{"length": 0.0},
 		"thickness":       map[string]any{"length": thickness},
 		"flip_orizzontal": false,
+	}
+}
+
+func defaultBalconyProperties(width, depth float64) map[string]any {
+	return map[string]any{
+		"width":        map[string]any{"length": width},
+		"depth":        map[string]any{"length": depth},
+		"height":       map[string]any{"length": 100.0},
+		"altitude":     map[string]any{"length": 0.0},
+		"patternColor": "#f5f4f4",
 	}
 }
 
