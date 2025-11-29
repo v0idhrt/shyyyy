@@ -86,16 +86,21 @@ func classifyElementByID(id string) string {
 	if strings.HasPrefix(id, "Wall_") {
 		return "wall"
 	}
+	if strings.HasPrefix(id, "Hui_Wall_") { // новые префиксы стен
+		return "wall"
+	}
 	if strings.HasPrefix(id, "Door_") {
 		return "door"
 	}
 	if strings.HasPrefix(id, "Window_") {
 		return "window"
 	}
-	if strings.HasPrefix(id, "Room_") {
+	if strings.HasPrefix(id, "Room_") ||
+		strings.HasSuffix(id, "_room") || // Hall_room, Toilet_room
+		strings.HasSuffix(id, "_Room") {
 		return "room"
 	}
-	if strings.HasPrefix(id, "Balcony_") {
+	if strings.HasPrefix(id, "Balcony_") || strings.HasPrefix(id, "Balcony") {
 		return "balcony"
 	}
 	return ""

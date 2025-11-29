@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"math"
+	"strings"
 
 	"api-gateway/internal/converter/graph"
 	"api-gateway/internal/converter/models"
@@ -163,19 +164,19 @@ func (c *Converter) createArea(elem models.SVGElement, areaType string, target m
 
 	vertexIDs := c.builder.AddAreaVertices(points, elem.ID)
 
-	areaTypeName := areaType
-	if areaType == "balcony" {
-		areaTypeName = "area" // используем базовый тип каталога
-	}
+	areaTypeName := "area" // используем базовый тип каталога для совместимости каталога
+	displayName := areaDisplayName(elem.ID, areaType)
+	props := defaultAreaProperties()
+	props["name"] = displayName
 
 	area := models.Area{
 		ID:         elem.ID,
-		Name:       elem.ID,
+		Name:       displayName,
 		Type:       areaTypeName,
 		Prototype:  "areas",
 		Vertices:   vertexIDs,
 		Holes:      []string{},
-		Properties: defaultAreaProperties(),
+		Properties: props,
 	}
 
 	// замыкаем контур
@@ -208,14 +209,12 @@ func (c *Converter) createBalconyItems(elems []models.SVGElement, target map[str
 		return
 	}
 
-	// Сохраним ориентацию по первой стороне для вращения: берем первую и вторую точку первого элемента
+	// Ориентация по первой стороне первого элемента
 	rotation := 0.0
-	if len(elems) > 0 {
-		if pts, err := c.getElementPoints(elems[0]); err == nil && len(pts) >= 2 {
-			dx := pts[1].X - pts[0].X
-			dy := pts[1].Y - pts[0].Y
-			rotation = math.Atan2(dy, dx) * 180 / math.Pi // в градусах
-		}
+	if pts, err := c.getElementPoints(elems[0]); err == nil && len(pts) >= 2 {
+		dx := pts[1].X - pts[0].X
+		dy := pts[1].Y - pts[0].Y
+		rotation = math.Atan2(dy, dx) * 180 / math.Pi // в градусах
 	}
 
 	minX, maxX := allPoints[0].X, allPoints[0].X
@@ -594,4 +593,116 @@ func (c *Converter) applyTransform(points []models.Point) []models.Point {
 		out = append(out, tf(p))
 	}
 	return out
+}
+
+func areaDisplayName(id, areaType string) string {
+	name := id
+	if strings.HasPrefix(id, "Room_") {
+		name = strings.TrimPrefix(id, "Room_")
+	}
+	if strings.HasSuffix(name, "_room") {
+		name = strings.TrimSuffix(name, "_room")
+	}
+	if strings.HasSuffix(name, "_Room") {
+		name = strings.TrimSuffix(name, "_Room")
+	}
+	name = strings.ReplaceAll(name, "_", " ")
+	name = strings.TrimSpace(name)
+	if name == "" {
+		return id
+	}
+	return name
+}
+
+func averagePoint(points []models.Point) models.Point {
+	var sx, sy float64
+	for _, p := range points {
+		sx += p.X
+		sy += p.Y
+	}
+	n := float64(len(points))
+	return models.Point{X: sx / n, Y: sy / n}
+}
+
+// findNearestWallAngle возвращает id стены и угол в градусах (atan2) ближайшей линии к точке.
+func (c *Converter) findNearestWallAngle(p models.Point) (string, float64) {
+	lines := c.builder.GetLines()
+	verts := c.builder.GetVertices()
+
+	minDist := math.MaxFloat64
+	var chosen string
+	var angle float64
+
+	for id, line := range lines {
+		if len(line.Vertices) < 2 {
+			continue
+		}
+		v1, ok1 := verts[line.Vertices[0]]
+		v2, ok2 := verts[line.Vertices[1]]
+		if !ok1 || !ok2 {
+			continue
+		}
+		dx := v2.X - v1.X
+		dy := v2.Y - v1.Y
+		lenSq := dx*dx + dy*dy
+		if lenSq == 0 {
+			continue
+		}
+		// distance point-line
+		t := ((p.X-v1.X)*dx + (p.Y-v1.Y)*dy) / lenSq
+		t = math.Max(0, math.Min(1, t))
+		projX := v1.X + t*dx
+		projY := v1.Y + t*dy
+		dist := math.Hypot(p.X-projX, p.Y-projY)
+		if dist < minDist {
+			minDist = dist
+			chosen = id
+			angle = math.Atan2(dy, dx) * 180 / math.Pi
+		}
+	}
+	return chosen, angle
+}
+
+// bboxAlongAxis вычисляет размеры и центр прямоугольника точек в системе координат, повернутой на angleDeg.
+func bboxAlongAxis(points []models.Point, angleDeg float64) (width, depth, cx, cy float64) {
+	angleRad := angleDeg * math.Pi / 180
+	sin := math.Sin(angleRad)
+	cos := math.Cos(angleRad)
+
+	rotate := func(p models.Point) (float64, float64) {
+		x := p.X*cos + p.Y*sin
+		y := -p.X*sin + p.Y*cos
+		return x, y
+	}
+
+	minX, maxX := math.MaxFloat64, -math.MaxFloat64
+	minY, maxY := math.MaxFloat64, -math.MaxFloat64
+	for _, p := range points {
+		rx, ry := rotate(p)
+		if rx < minX {
+			minX = rx
+		}
+		if rx > maxX {
+			maxX = rx
+		}
+		if ry < minY {
+			minY = ry
+		}
+		if ry > maxY {
+			maxY = ry
+		}
+	}
+
+	width = maxX - minX
+	depth = maxY - minY
+
+	// центр обратно в мировые координаты
+	cx = (minX + maxX) / 2
+	cy = (minY + maxY) / 2
+
+	// обратное вращение
+	worldX := cx*cos - cy*sin
+	worldY := cx*sin + cy*cos
+	cx, cy = worldX, worldY
+	return
 }
