@@ -208,6 +208,16 @@ func (c *Converter) createBalconyItems(elems []models.SVGElement, target map[str
 		return
 	}
 
+	// Сохраним ориентацию по первой стороне для вращения: берем первую и вторую точку первого элемента
+	rotation := 0.0
+	if len(elems) > 0 {
+		if pts, err := c.getElementPoints(elems[0]); err == nil && len(pts) >= 2 {
+			dx := pts[1].X - pts[0].X
+			dy := pts[1].Y - pts[0].Y
+			rotation = math.Atan2(dy, dx) * 180 / math.Pi // в градусах
+		}
+	}
+
 	minX, maxX := allPoints[0].X, allPoints[0].X
 	minY, maxY := allPoints[0].Y, allPoints[0].Y
 	for _, p := range allPoints {
@@ -239,7 +249,7 @@ func (c *Converter) createBalconyItems(elems []models.SVGElement, target map[str
 		Prototype:  "items",
 		X:          cx,
 		Y:          cy,
-		Rotation:   0,
+		Rotation:   rotation,
 		Selected:   false,
 		Visible:    true,
 		Properties: defaultBalconyProperties(width, depth),
