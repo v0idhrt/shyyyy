@@ -158,7 +158,7 @@ func (h *AuthHandler) UploadPDF(c fiber.Ctx) error {
 
 // UploadPNG сохраняет png в файловой системе.
 func (h *AuthHandler) UploadPNG(c fiber.Ctx) error {
-	return h.saveFileWithOriginal(c, ".png")
+	return h.saveFileWithOriginal(c, ".png", ".jpg", ".jpeg")
 }
 
 // UploadJSON сохраняет json файл в папке json/.
@@ -176,7 +176,8 @@ func (h *AuthHandler) UploadJSON(c fiber.Ctx) error {
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "file required"})
 	}
-	if ext := strings.ToLower(filepath.Ext(fileHeader.Filename)); ext != ".json" {
+	ext := strings.ToLower(filepath.Ext(fileHeader.Filename))
+	if ext != ".json" {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "only json allowed"})
 	}
 
@@ -352,8 +353,8 @@ func (h *AuthHandler) UploadPNGAndReturnSVG(c fiber.Ctx) error {
 
 	name := fileHeader.Filename
 	ext := strings.ToLower(filepath.Ext(name))
-	if ext != ".png" {
-		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "only png allowed"})
+	if ext != ".png" && ext != ".jpg" && ext != ".jpeg" {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "only png/jpg/jpeg allowed"})
 	}
 	base := strings.TrimSuffix(name, ext)
 
@@ -408,8 +409,8 @@ func (h *AuthHandler) UploadPNGToJSON(c fiber.Ctx) error {
 
 	name := fileHeader.Filename
 	ext := strings.ToLower(filepath.Ext(name))
-	if ext != ".png" {
-		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "only png allowed"})
+	if ext != ".png" && ext != ".jpg" && ext != ".jpeg" {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "only png/jpg/jpeg allowed"})
 	}
 	base := strings.TrimSuffix(name, ext)
 
@@ -568,7 +569,7 @@ func (h *AuthHandler) saveFile(c fiber.Ctx, pathFn func(string) string) error {
 }
 
 // saveFileWithOriginal сохраняет файл под исходным именем.
-func (h *AuthHandler) saveFileWithOriginal(c fiber.Ctx, allowedExt string) error {
+func (h *AuthHandler) saveFileWithOriginal(c fiber.Ctx, allowedExt ...string) error {
 	userID, ok := h.authorize(c)
 	if !ok {
 		return c.Status(http.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
@@ -583,8 +584,16 @@ func (h *AuthHandler) saveFileWithOriginal(c fiber.Ctx, allowedExt string) error
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "file required"})
 	}
 
-	if allowedExt != "" {
-		if ext := strings.ToLower(filepath.Ext(fileHeader.Filename)); ext != allowedExt {
+	if len(allowedExt) > 0 {
+		ext := strings.ToLower(filepath.Ext(fileHeader.Filename))
+		valid := false
+		for _, a := range allowedExt {
+			if ext == a {
+				valid = true
+				break
+			}
+		}
+		if !valid {
 			return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "invalid file type"})
 		}
 	}
