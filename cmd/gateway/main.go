@@ -123,6 +123,13 @@ func main() {
 		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json-edited?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
 	})
 
+	// ComfyUI Service
+	comfyuiURL := getEnv("COMFYUI_SERVICE_URL", "http://localhost:3003")
+	api.Post("/comfyui/process", proxy.ProxyTo(comfyuiURL+"/process"))
+	api.Get("/comfyui/download/:user_id/:filename", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/download/%s/%s", comfyuiURL, c.Params("user_id"), c.Params("filename")))
+	})
+
 	// ============================================================
 	// Server Start
 	// ============================================================

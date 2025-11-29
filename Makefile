@@ -5,6 +5,7 @@ help:
 	@echo "  make gateway          - запустить API Gateway"
 	@echo "  make converter        - запустить Converter Service"
 	@echo "  make auth             - запустить Auth Service"
+	@echo "  make comfyui          - запустить ComfyUI Service"
 	@echo "  make build-all        - собрать все сервисы"
 	@echo "  make run-all          - запустить все сервисы (фоново)"
 	@echo "  make mirror           - отразить координаты X в test.json"
@@ -26,6 +27,10 @@ converter:
 
 auth:
 	PORT=3002 AUTH_DB_PATH=data/db/auth.db go run ./cmd/auth/main.go
+
+comfyui:
+	@test -d services/comfyui/venv || (cd services/comfyui && python -m venv venv && venv/bin/pip install -r requirements.txt)
+	cd services/comfyui && venv/bin/uvicorn main:app --port 3003 --reload
 
 run-all:
 	@echo "Запуск Converter Service..."

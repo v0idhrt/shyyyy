@@ -1,0 +1,417 @@
+{
+  "1204": {
+    "inputs": {
+      "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Загрузить CLIP"
+    }
+  },
+  "1205": {
+    "inputs": {
+      "shift": 3,
+      "model": [
+        "1206",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingAuraFlow",
+    "_meta": {
+      "title": "Выборка модели AuraFlow"
+    }
+  },
+  "1206": {
+    "inputs": {
+      "lora_name": "Qwen\\Qwen-Image-Lightning-8steps-V1.0.safetensors",
+      "strength_model": 1,
+      "model": [
+        "1207",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Загрузчик LoRA (Только модель)"
+    }
+  },
+  "1207": {
+    "inputs": {
+      "unet_name": "Qwen-Image-Edit-2509-Q8_0.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "1208": {
+    "inputs": {
+      "strength": 1,
+      "model": [
+        "1205",
+        0
+      ]
+    },
+    "class_type": "CFGNorm",
+    "_meta": {
+      "title": "CFGNorm"
+    }
+  },
+  "1210": {
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Загрузить VAE"
+    }
+  },
+  "1211": {
+    "inputs": {
+      "prompt": [
+        "1232",
+        0
+      ],
+      "clip": [
+        "1204",
+        0
+      ],
+      "vae": [
+        "1210",
+        0
+      ],
+      "image1": [
+        "1225",
+        0
+      ],
+      "image2": [
+        "1231",
+        0
+      ]
+    },
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": {
+      "title": "TextEncodeQwenImageEditPlus"
+    }
+  },
+  "1212": {
+    "inputs": {
+      "prompt": [
+        "1232",
+        0
+      ],
+      "clip": [
+        "1204",
+        0
+      ],
+      "vae": [
+        "1210",
+        0
+      ],
+      "image1": [
+        "1225",
+        0
+      ],
+      "image2": [
+        "1231",
+        0
+      ]
+    },
+    "class_type": "TextEncodeQwenImageEditPlus",
+    "_meta": {
+      "title": "TextEncodeQwenImageEditPlus"
+    }
+  },
+  "1214": {
+    "inputs": {
+      "seed": 72780948726053,
+      "steps": 6,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "beta",
+      "denoise": 1,
+      "model": [
+        "1208",
+        0
+      ],
+      "positive": [
+        "1212",
+        0
+      ],
+      "negative": [
+        "1211",
+        0
+      ],
+      "latent_image": [
+        "1221",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "1215": {
+    "inputs": {
+      "rgthree_comparer": {
+        "images": [
+          {
+            "name": "A",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_pmksy_00001_.png&type=temp&subfolder=&rand=0.5923576295073463"
+          },
+          {
+            "name": "B",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_pmksy_00002_.png&type=temp&subfolder=&rand=0.5391583504076387"
+          }
+        ]
+      },
+      "image_a": [
+        "1229",
+        0
+      ],
+      "image_b": [
+        "1222",
+        0
+      ]
+    },
+    "class_type": "Image Comparer (rgthree)",
+    "_meta": {
+      "title": "Image Comparer (rgthree)"
+    }
+  },
+  "1216": {
+    "inputs": {
+      "anything": [
+        "1229",
+        0
+      ]
+    },
+    "class_type": "easy cleanGpuUsed",
+    "_meta": {
+      "title": "Clean VRAM Used"
+    }
+  },
+  "1217": {
+    "inputs": {
+      "images": [
+        "1225",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Предварительный просмотр изображения"
+    }
+  },
+  "1219": {
+    "inputs": {
+      "width": 2048,
+      "height": 2048,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Пустое латентное изображение"
+    }
+  },
+  "1221": {
+    "inputs": {
+      "pixels": [
+        "1226",
+        0
+      ],
+      "vae": [
+        "1210",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "Кодировать VAE"
+    }
+  },
+  "1222": {
+    "inputs": {
+      "image": "360.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Gray Image"
+    }
+  },
+  "1223": {
+    "inputs": {
+      "image": [
+        "1238",
+        0
+      ]
+    },
+    "class_type": "GetImageSize+",
+    "_meta": {
+      "title": "🔧 Get Image Size"
+    }
+  },
+  "1224": {
+    "inputs": {
+      "preprocessor": "DepthAnythingV2Preprocessor",
+      "resolution": [
+        "1223",
+        0
+      ],
+      "image": [
+        "1238",
+        0
+      ]
+    },
+    "class_type": "AIO_Preprocessor",
+    "_meta": {
+      "title": "AIO Aux Preprocessor"
+    }
+  },
+  "1225": {
+    "inputs": {
+      "width": [
+        "1223",
+        0
+      ],
+      "height": [
+        "1223",
+        1
+      ],
+      "interpolation": "nearest",
+      "method": "stretch",
+      "condition": "always",
+      "multiple_of": 0,
+      "image": [
+        "1224",
+        0
+      ]
+    },
+    "class_type": "ImageResize+",
+    "_meta": {
+      "title": "🔧 Image Resize"
+    }
+  },
+  "1226": {
+    "inputs": {
+      "overlay_resize": "Fit",
+      "resize_method": "nearest-exact",
+      "rescale_factor": 1,
+      "width": [
+        "1223",
+        0
+      ],
+      "height": [
+        "1223",
+        1
+      ],
+      "x_offset": 0,
+      "y_offset": 0,
+      "rotation": 0,
+      "opacity": 0.5,
+      "base_image": [
+        "1225",
+        0
+      ],
+      "overlay_image": [
+        "1238",
+        0
+      ]
+    },
+    "class_type": "Image Overlay",
+    "_meta": {
+      "title": "Image Overlay"
+    }
+  },
+  "1228": {
+    "inputs": {
+      "string_a": "beautiful interior, 2.5d, render, high quality vizualisation. ",
+      "string_b": "Use image 1, to make beautiful interior with colors, lightning and furniture from image 2",
+      "delimiter": " "
+    },
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "Concatenate"
+    }
+  },
+  "1229": {
+    "inputs": {
+      "samples": [
+        "1214",
+        0
+      ],
+      "vae": [
+        "1210",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "Декодировать VAE"
+    }
+  },
+  "1230": {
+    "inputs": {
+      "images": [
+        "1229",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Предварительный просмотр изображения"
+    }
+  },
+  "1231": {
+    "inputs": {
+      "image": "14fc2183e8c2aec8b55ddc1c877fc663.jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Reference Image"
+    }
+  },
+  "1232": {
+    "inputs": {
+      "string_a": "Take the provided gray 2.5d apartment model and the reference interior image. Keep all proportions and  of the model exactly the same. Using the style, materials, colors, lighting, and overall mood of the reference interior image. Preserve a color and texture of a floor, walls, and furniture. Produce a high-quality, realistic render. Preserve accurate perspective and lighting consistency.",
+      "string_b": "",
+      "delimiter": ""
+    },
+    "class_type": "StringConcatenate",
+    "_meta": {
+      "title": "Concatenate"
+    }
+  },
+  "1238": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "megapixels": 1,
+      "image": [
+        "1222",
+        0
+      ]
+    },
+    "class_type": "ImageScaleToTotalPixels",
+    "_meta": {
+      "title": "Масштабировать изображение до общего количества пикселей"
+    }
+  },
+  "1239": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "1229",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Сохранить изображение"
+    }
+  }
+}
