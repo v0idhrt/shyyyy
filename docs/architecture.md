@@ -10,11 +10,17 @@
 - `GET /api/v1/` - info
 - `POST /api/v1/convert` - proxy → Converter Service
 - `POST /api/v1/render` - proxy → Converter Service
+- `POST /api/v1/login` - proxy → Auth Service
+- `GET /api/v1/users/:id` - proxy → Auth Service
+- `GET /api/v1/users/:id/svg` - proxy → Auth Service
+- `GET /api/v1/users/:id/pdf` - proxy → Auth Service
+- `POST /api/v1/users/:id/svg` - proxy → Auth Service
+- `POST /api/v1/users/:id/pdf` - proxy → Auth Service
 
 **Компоненты:**
 - `cmd/gateway` - точка входа
 - `internal/gateway/handlers` - health handlers
-- `internal/gateway/proxy` - reverse proxy на `httputil`, отдает запросы сервисам без модификации multipart тел
+- `internal/gateway/proxy` - reverse proxy, поддерживает raw и multipart
 
 ### Converter Service (порт 3001)
 Конвертация SVG планировок в react-planner JSON.
@@ -31,6 +37,24 @@
 - `internal/converter/graph` - граф стен
 - `internal/converter/mapper` - конвертация
 - `internal/converter/models` - типы данных
+
+### Auth Service (порт 3002)
+Простая аутентификация + выдача пользовательских данных и файлов.
+
+**Endpoints:**
+- `GET /health/*` - health checks
+- `POST /login` - выдает токен для пользователя
+- `GET /users/:id` - профиль пользователя
+- `GET /users/:id/svg` - отдать SVG файл пользователя
+- `GET /users/:id/pdf` - отдать PDF файл пользователя
+- `POST /users/:id/svg` - загрузить SVG
+- `POST /users/:id/pdf` - загрузить PDF
+
+**Компоненты:**
+- `cmd/auth` - точка входа
+- `internal/auth/repository` - sqlite repository
+- `internal/auth/handlers` - http handlers
+- `internal/auth/service` - sessions + storage
 
 ## Общие модули
 

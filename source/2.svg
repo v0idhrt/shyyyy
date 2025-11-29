@@ -1,1 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?> <svg xmlns="http://www.w3.org/2000/svg" width="3000" height="2000" viewBox="0 0 3000 2000"> <rect id="Wall_18" x="1339" y="819.5" width="203" height="19" fill="none" stroke="#000" /> <rect id="Wall_08" x="1483" y="1067.5" width="153" height="6" fill="none" stroke="#000" /> <rect id="Wall_19" x="1339" y="838.5" width="18" height="180" fill="none" stroke="#000" /> <rect id="Wall_09" x="1545" y="1073.5" width="5" height="95" fill="none" stroke="#000" /> <rect id="Wall_20" x="1292" y="1000.5" width="48" height="19" fill="none" stroke="#000" /> <rect id="Wall_10" x="1630" y="1091.5" width="6" height="77" fill="none" stroke="#000" /> <rect id="Wall_21" x="1292" y="1019.5" width="18" height="137" fill="none" stroke="#000" /> <rect id="Wall_02" x="1550" y="983.5" width="19" height="36" fill="none" stroke="#000" /> <rect id="Wall_24" x="1569" y="1014.5" width="154" height="5" fill="none" stroke="#000" /> <rect id="Wall_06" x="1483" y="1136.5" width="23" height="5" fill="none" stroke="#000" /> <rect id="Wall_07" x="1501" y="1073.5" width="5" height="63" fill="none" stroke="#000" /> <rect id="Wall_13" x="1723" y="1001.5" width="18" height="35" fill="none" stroke="#000" /> <rect id="Wall_04" x="1479" y="1019.5" width="4" height="48" fill="none" stroke="#000" /> <rect id="Wall_05" x="1476.75" y="1067.5" width="7" height="101" fill="none" stroke="#000" /> <rect id="Wall_17" x="1541" y="819.5" width="36" height="27" fill="none" stroke="#000" /> <rect id="Wall_22" x="1292" y="1156.5" width="26" height="24" fill="none" stroke="#000" /> <rect id="Wall_01" x="1565" y="846.5" width="5" height="138" fill="none" stroke="#000" /> <rect id="Wall_03" x="1357" y="1014.5" width="193" height="5" fill="none" stroke="#000" /> <rect id="Wall_15" x="1714" y="819.5" width="35" height="27" fill="none" stroke="#000" /> <rect id="Wall_16" x="1577" y="819.5" width="137" height="19" fill="none" stroke="#000" /> <rect id="Wall_11" x="1596" y="1073.5" width="40" height="19" fill="none" stroke="#000" /> <rect id="Wall_12" x="1729" y="1035.5" width="12" height="143" fill="none" stroke="#000" /> <rect id="Wall_23" x="1318" y="1168.5" width="411" height="12" fill="none" stroke="#000" /> <rect id="Wall_14" x="1729" y="846.5" width="12" height="155" fill="none" stroke="#000" /> <rect id="Window_01" x="1664.75" y="819.5" width="77" height="19" fill="none" stroke="#1f77b4" /> <rect id="Door_01" x="1596" y="1014.5" width="40" height="5" fill="none" stroke="#d62728" /> <rect id="Door_02" x="1497.5" y="1014.5" width="57" height="5" fill="none" stroke="#d62728" /> <rect id="Door_03" x="1479" y="1027.8333333333333" width="4" height="34" fill="none" stroke="#d62728" /> <rect id="Door_04" x="1506" y="1067.5" width="30" height="6" fill="none" stroke="#d62728" /> <rect id="Door_06" x="1729" y="1110.1666666666667" width="12" height="44" fill="none" stroke="#d62728" /> <rect id="Window_02" x="1408.6" y="819.5" width="94" height="19" fill="none" stroke="#1f77b4" /> <rect id="Door_05" x="1557.6666666666665" y="1067.5" width="32" height="6" fill="none" stroke="#d62728" /> <rect id="Door_07" x="1292" y="1053" width="18" height="33" fill="none" stroke="#d62728" /> <path id="Balcony_01" d="M 1239 1176.5 L 1239 1000.5 L 1293 1000.5 L 1293 1176.5 Z" fill="none" stroke="#2ca02c" /> </svg>
+<svg id="двери" xmlns="http://www.w3.org/2000/svg" width="1809" height="2560" viewBox="0 0 1809 2560">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #333;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        stroke: #caa276;
+        stroke-width: 1px;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        fill: #ffc087;
+      }
+
+      .cls-4 {
+        fill: #caa276;
+      }
+    </style>
+  </defs>
+  <rect id="Door_01" class="cls-1" x="728" y="1462" width="40" height="5"/>
+  <path id="Door_02" class="cls-2" d="M677,1467v-5H620v5h57Z"/>
+  <path id="Door_03" class="cls-2" d="M615,1448v-34h-4v34h4Z"/>
+  <path id="Door_04" class="cls-2" d="M643,1408v6h30v-6H643Z"/>
+  <path id="Door_05" class="cls-2" d="M695,1408v6h32v-6H695Z"/>
+  <path id="Door_06" class="cls-2" d="M873,1364H861v-44h12v44Z"/>
+  <path id="Door_07" class="cls-2" d="M442,1423H424v-33h18v33Z"/>
+  <path id="Window_02" class="cls-2" d="M550,1642v19h94v-18Z"/>
+  <path id="Фигура_1" data-name="Фигура 1" class="cls-2" d="M606,1556"/>
+  <path id="Window_01" class="cls-2" d="M816,1643v19l-78-1,1-18h77Z"/>
+  <path id="Balcony_01" class="cls-2" d="M425,1474H371v7h53Z"/>
+  <path id="Balcony_02" class="cls-2" d="M371,1305v169h6V1305h-6Z"/>
+  <path id="Balcony_03" class="cls-2" d="M424,1311H377v-6h47v6Z"/>
+  <path id="Wall_01" class="cls-2" d="M702,1635h-5V1497h4Z"/>
+  <rect id="Wall_02" class="cls-1" x="682" y="1462" width="19" height="36"/>
+  <rect id="Wall_03" class="cls-1" x="489" y="1462" width="193" height="5"/>
+  <path id="Wall_04" class="cls-2" d="M611,1414v48h4v-48h-4Z"/>
+  <path id="Wall_05" class="cls-2" d="M608,1313v101h7V1313h-7Z"/>
+  <path id="Wall_06" class="cls-2" d="M638,1340H615v5h23v-5Z"/>
+  <path id="Wall_07" class="cls-2" d="M633,1408h5v-63h-5v63Z"/>
+  <path id="Wall_08" class="cls-2" d="M768,1414H615v-6H768v6Z"/>
+  <path id="Wall_09" class="cls-2" d="M677,1313v95h5v-95h-5Z"/>
+  <path id="Wall_10" class="cls-2" d="M762,1313v77h6v-77h-6Z"/>
+  <path id="Wall_11" class="cls-2" d="M728,1389v19h40v-18Z"/>
+  <path id="Wall_12" class="cls-2" d="M873,1303v143H861V1303h12Z"/>
+  <path id="Wall_13" class="cls-2" d="M873,1480H855v-35h18v35Z"/>
+  <path id="Wall_14" class="cls-2" d="M873,1635H861V1480h12v155Z"/>
+  <rect id="Wall_15" class="cls-1" x="846" y="1635" width="35" height="27"/>
+  <rect id="Wall_16" class="cls-1" x="709" y="1643" width="137" height="19"/>
+  <path id="Wall_17" class="cls-2" d="M673,1635h36v27H674Z"/>
+  <rect id="Wall_18" class="cls-1" x="471" y="1643" width="203" height="19"/>
+  <path id="Wall_19" class="cls-2" d="M489,1463v180H471V1463h18Z"/>
+  <rect id="Wall_20" class="cls-1" x="424" y="1462" width="48" height="19"/>
+  <path id="Wall_21" class="cls-2" d="M442,1325H424v137h18V1325Z"/>
+  <rect id="Wall_22" class="cls-1" x="424" y="1301" width="26" height="24"/>
+  <path id="Wall_23" class="cls-2" d="M861,1303v10H450v-12H861v2Z"/>
+  <path id="Wall_24" class="cls-2" d="M855,1467H701v-5H855v5Z"/>
+  <path id="Toliet_room" class="cls-3" d="M762,1313H615v95H762v-95Z"/>
+  <path id="Balcony_room" class="cls-3" d="M424,1474H377V1311h47v163Z"/>
+  <path id="Hall_room" class="cls-4" d="M855,1462v-17h6V1313H768v101H615v48H855Z"/>
+  <path id="Room_01" class="cls-4" d="M846,1643v-8h15V1481h-6v-14H701l1,168h7v8H846Z"/>
+  <path id="Room_02" class="cls-4" d="M490,1643H673v-8h24V1498H682v-31H489Z"/>
+  <path id="Room_03" class="cls-4" d="M442,1462V1325h9v-12H608v101h3v48H442Z"/>
+</svg>

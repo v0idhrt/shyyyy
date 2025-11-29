@@ -65,6 +65,58 @@ func main() {
 	api.Post("/convert", proxy.ProxyTo(converterURL+"/convert"))
 	api.Post("/render", proxy.ProxyTo(converterURL+"/render"))
 
+	// Auth Service
+	authURL := getEnv("AUTH_URL", "http://localhost:3002")
+	api.Post("/login", proxy.ProxyTo(authURL+"/login"))
+	api.Get("/users/:id", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s", authURL, c.Params("id")))
+	})
+	api.Get("/users/:id/svg", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/svg", authURL, c.Params("id")))
+	})
+	api.Get("/users/:id/pdf", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/pdf", authURL, c.Params("id")))
+	})
+	api.Get("/users/:id/png", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/png", authURL, c.Params("id")))
+	})
+	api.Get("/users/:id/files", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/files", authURL, c.Params("id")))
+	})
+	api.Post("/users/:id/svg", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/svg", authURL, c.Params("id")))
+	})
+	api.Post("/users/:id/pdf", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/pdf", authURL, c.Params("id")))
+	})
+	api.Post("/users/:id/png", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/png", authURL, c.Params("id")))
+	})
+	api.Post("/users/:id/png-to-svg", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/png-to-svg", authURL, c.Params("id")))
+	})
+	api.Post("/users/:id/png-to-json", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/png-to-json", authURL, c.Params("id")))
+	})
+	api.Post("/users/:id/svg-edited", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/svg-edited", authURL, c.Params("id")))
+	})
+	api.Get("/users/:id/svg-edited", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/svg-edited?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
+	})
+	api.Get("/users/:id/svg-json", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/svg-json?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
+	})
+	api.Get("/users/:id/svg-edited-json", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/svg-edited-json?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
+	})
+	api.Post("/users/:id/json", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json", authURL, c.Params("id")))
+	})
+	api.Get("/users/:id/json", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
+	})
+
 	// ============================================================
 	// Server Start
 	// ============================================================
