@@ -1,2 +1,0 @@
-Token usage: total=543 376 input=483 245 (+ 9 628 288 cached) output=60 131 (reasoning 27 520)
-To continue this session, run codex resume 019acc07-1432-7392-847d-9d06f5f43f19

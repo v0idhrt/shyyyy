@@ -1,5 +1,6 @@
 import json
 import uuid
+import random
 import asyncio
 import aiohttp
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
@@ -49,8 +50,8 @@ async def queue_workflow(workflow: dict) -> str:
 
             return result['prompt_id']
 
-async def poll_history(prompt_id: str):
-    """Polling /history каждую секунду"""
+async def poll_history(prompt_id: str, progress_queue: asyncio.Queue = None):
+    """Polling /history каждую секунду с optional прогрессом"""
     async with aiohttp.ClientSession() as session:
         max_attempts = 300
 
@@ -58,6 +59,18 @@ async def poll_history(prompt_id: str):
             # Проверяем сразу, без задержки в первый раз
             if attempt > 0:
                 await asyncio.sleep(1)
+
+            if progress_queue:
+                ratio = (attempt + 1) / max_attempts
+                eased = 1 - (1 - ratio) ** 3  # плавный рост, быстрее в начале
+                percent = min(int(eased * 100), 95)  # не прыгаем к 100 до реального окончания
+                await progress_queue.put({
+                    "type": "progress",
+                    "message": "Waiting for completion (polling)",
+                    "attempt": attempt + 1,
+                    "max_attempts": max_attempts,
+                    "percent": percent
+                })
 
             try:
                 async with session.get(f"{COMFYUI_URL}/history/{prompt_id}") as resp:
@@ -69,6 +82,17 @@ async def poll_history(prompt_id: str):
 
                             # Проверяем наличие outputs
                             if 'outputs' in prompt_data and '1239' in prompt_data['outputs']:
+                                if progress_queue:
+                                    await progress_queue.put({
+                                        "type": "progress",
+                                        "message": "Workflow finished (polling detected)",
+                                        "percent": 100
+                                    })
+                                if progress_queue:
+                                    await progress_queue.put({
+                                        "type": "status",
+                                        "message": "Workflow detected as completed"
+                                    })
                                 print(f"[COMFYUI] Workflow completed! (detected via polling)")
                                 return True
 
@@ -152,6 +176,7 @@ async def process_workflow_background(job_id: str, gray_bytes: bytes, gray_filen
 
         workflow["1222"]["inputs"]["image"] = gray_name
         workflow["1231"]["inputs"]["image"] = ref_name
+        workflow["1214"]["inputs"]["seed"] = random.randint(0, 2**63 - 1)
 
         # 3. Постановка workflow в очередь и ожидание через polling
         await send_progress("status", {"message": "Queueing workflow"})
@@ -163,7 +188,7 @@ async def process_workflow_background(job_id: str, gray_bytes: bytes, gray_filen
 
         await send_progress("status", {"message": "Waiting for completion (polling)"})
         print(f"[COMFYUI] Job {job_id}: Waiting for completion via polling...")
-        await poll_history(prompt_id)
+        await poll_history(prompt_id, progress_queue)
 
         # 6. Получение результата
         await send_progress("status", {"message": "Downloading result"})
