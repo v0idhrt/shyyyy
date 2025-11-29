@@ -116,6 +116,12 @@ func main() {
 	api.Get("/users/:id/json", func(c fiber.Ctx) error {
 		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
 	})
+	api.Post("/users/:id/json-edited", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json-edited", authURL, c.Params("id")))
+	})
+	api.Get("/users/:id/json-edited", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json-edited?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
+	})
 
 	// ============================================================
 	// Server Start

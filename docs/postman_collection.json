@@ -121,6 +121,33 @@
       }
     },
     {
+      "name": "Upload Edited JSON",
+      "request": {
+        "method": "POST",
+        "body": {
+          "mode": "formdata",
+          "formdata": [{ "key": "file", "type": "file", "src": "/path/to/data.json" }]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/users/{{userId}}/json-edited",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "users", "{{userId}}", "json-edited"]
+        }
+      }
+    },
+    {
+      "name": "Get Edited JSON",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/users/{{userId}}/json-edited?name=data.json",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "users", "{{userId}}", "json-edited"],
+          "query": [{ "key": "name", "value": "data.json" }]
+        }
+      }
+    },
+    {
       "name": "Upload SVG",
       "request": {
         "method": "POST",

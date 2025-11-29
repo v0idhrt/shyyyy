@@ -146,6 +146,26 @@ func (h *AuthHandler) GetJSON(c fiber.Ctx) error {
 	return c.SendFile(path)
 }
 
+// GetEditedJSON отдаёт измененный json.
+func (h *AuthHandler) GetEditedJSON(c fiber.Ctx) error {
+	userID, ok := h.authorize(c)
+	if !ok {
+		return c.Status(http.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+	}
+	targetID := c.Params("id")
+	if targetID == "" || targetID != userID {
+		return c.Status(http.StatusForbidden).JSON(fiber.Map{"error": "forbidden"})
+	}
+
+	path, err := h.resolveFilePath(targetID, h.storage.EditedJSONDir(targetID), c.Query("name"), ".json")
+	if err != nil {
+		return err
+	}
+
+	c.Set("Content-Type", "application/json")
+	return c.SendFile(path)
+}
+
 // UploadSVG сохраняет svg в файловой системе.
 func (h *AuthHandler) UploadSVG(c fiber.Ctx) error {
 	return h.saveFileWithOriginal(c, ".svg")
@@ -199,6 +219,54 @@ func (h *AuthHandler) UploadJSON(c fiber.Ctx) error {
 	path := h.storage.JSONPath(targetID, fileHeader.Filename)
 	if err := h.storage.SaveFile(targetID, path, data); err != nil {
 		log.Printf("[AUTH] save json error: %v", err)
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to save file"})
+	}
+
+	return c.Status(http.StatusCreated).JSON(fiber.Map{
+		"path":     path,
+		"filename": fileHeader.Filename,
+	})
+}
+
+// UploadEditedJSON сохраняет измененный json в json/edited/.
+func (h *AuthHandler) UploadEditedJSON(c fiber.Ctx) error {
+	userID, ok := h.authorize(c)
+	if !ok {
+		return c.Status(http.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+	}
+	targetID := c.Params("id")
+	if targetID == "" || targetID != userID {
+		return c.Status(http.StatusForbidden).JSON(fiber.Map{"error": "forbidden"})
+	}
+
+	fileHeader, err := c.FormFile("file")
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "file required"})
+	}
+
+	ext := strings.ToLower(filepath.Ext(fileHeader.Filename))
+	if ext != ".json" {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "only json allowed"})
+	}
+
+	file, err := fileHeader.Open()
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to open file"})
+	}
+	defer file.Close()
+
+	data, err := io.ReadAll(file)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to read file"})
+	}
+
+	if err := h.storage.EnsureEditedJSONDir(targetID); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to prepare json dir"})
+	}
+
+	path := h.storage.EditedJSONPath(targetID, fileHeader.Filename)
+	if err := h.storage.SaveFile(targetID, path, data); err != nil {
+		log.Printf("[AUTH] save edited json error: %v", err)
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to save file"})
 	}
 
@@ -305,6 +373,12 @@ func (h *AuthHandler) GetSVGAsJSON(c fiber.Ctx) error {
 		return c.Status(http.StatusBadGateway).JSON(fiber.Map{"error": "converter failed"})
 	}
 
+	if saved, err := h.saveJSONFile(targetID, filepath.Base(path)+".json", body); err != nil {
+		log.Printf("[AUTH] save json error: %v", err)
+	} else {
+		c.Set("X-Saved-JSON", saved)
+	}
+
 	c.Set("Content-Type", "application/json")
 	return c.Send(body)
 }
@@ -329,6 +403,12 @@ func (h *AuthHandler) GetEditedSVGAsJSON(c fiber.Ctx) error {
 	if err != nil {
 		log.Printf("[AUTH] convert edited svg error: %v", err)
 		return c.Status(http.StatusBadGateway).JSON(fiber.Map{"error": "converter failed"})
+	}
+
+	if saved, err := h.saveJSONFile(targetID, filepath.Base(path)+".json", body); err != nil {
+		log.Printf("[AUTH] save json error: %v", err)
+	} else {
+		c.Set("X-Saved-JSON", saved)
 	}
 
 	c.Set("Content-Type", "application/json")
@@ -449,6 +529,12 @@ func (h *AuthHandler) UploadPNGToJSON(c fiber.Ctx) error {
 		return c.Status(http.StatusBadGateway).JSON(fiber.Map{"error": "converter failed"})
 	}
 
+	if saved, err := h.saveJSONFile(targetID, base+".json", sceneJSON); err != nil {
+		log.Printf("[AUTH] save json error: %v", err)
+	} else {
+		c.Set("X-Saved-JSON", saved)
+	}
+
 	c.Set("Content-Type", "application/json")
 	return c.Send(sceneJSON)
 }
@@ -471,6 +557,7 @@ func (h *AuthHandler) ListFiles(c fiber.Ctx) error {
 		"pdf":          fileExists(h.storage.PDFPath(targetID)),
 		"png":          fileExists(h.storage.PNGPath(targetID)),
 		"json":         listFilesWithExt(h.storage.JSONDir(targetID), ".json"),
+		"edited_json":  listFilesWithExt(h.storage.EditedJSONDir(targetID), ".json"),
 		"original_svg": listFilesWithExt(userDir, ".svg"),
 		"original_png": listFilesWithExt(userDir, ".png"),
 		"edited_svg":   listFilesWithExt(h.storage.EditedDir(targetID), ".svg"),
@@ -730,4 +817,12 @@ func (h *AuthHandler) resolveFilePath(userID, dir, name, ext string) (string, er
 	}
 
 	return path, nil
+}
+
+func (h *AuthHandler) saveJSONFile(userID, filename string, data []byte) (string, error) {
+	if err := h.storage.EnsureJSONDir(userID); err != nil {
+		return "", err
+	}
+	path := h.storage.JSONPath(userID, filename)
+	return path, h.storage.SaveFile(userID, path, data)
 }

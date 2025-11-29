@@ -29,6 +29,8 @@
 - `GET /users/:id/files` — `Authorization`, список наличия базовых файлов и содержимого `uploads/`
 - `POST /users/:id/json` — `Authorization`, `multipart/form-data` JSON `file`, сохраняет в `json/`
 - `GET /users/:id/json?name=<filename>` — `Authorization`, отдаёт JSON файл из `json/`
+- `POST /users/:id/json-edited` — `Authorization`, `multipart/form-data` JSON `file`, сохраняет в `json/edited/`
+- `GET /users/:id/json-edited?name=<filename>` — `Authorization`, отдаёт JSON из `json/edited/`
 
 ## Запуск
 

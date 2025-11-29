@@ -3,23 +3,12 @@
     <style>
       .cls-1, .cls-2 {
         fill: #333;
-      }
-
-      .cls-1, .cls-2, .cls-3, .cls-4 {
         stroke: #caa276;
         stroke-width: 1px;
       }
 
-      .cls-2, .cls-3, .cls-4 {
+      .cls-2 {
         fill-rule: evenodd;
-      }
-
-      .cls-3 {
-        fill: #ffc087;
-      }
-
-      .cls-4 {
-        fill: #caa276;
       }
     </style>
   </defs>
@@ -60,10 +49,4 @@
   <rect id="Wall_22" class="cls-1" x="424" y="1301" width="26" height="24"/>
   <path id="Wall_23" class="cls-2" d="M861,1303v10H450v-12H861v2Z"/>
   <path id="Wall_24" class="cls-2" d="M855,1467H701v-5H855v5Z"/>
-  <path id="Toliet_room" class="cls-3" d="M762,1313H615v95H762v-95Z"/>
-  <path id="Balcony_room" class="cls-3" d="M424,1474H377V1311h47v163Z"/>
-  <path id="Hall_room" class="cls-4" d="M855,1462v-17h6V1313H768v101H615v48H855Z"/>
-  <path id="Room_01" class="cls-4" d="M846,1643v-8h15V1481h-6v-14H701l1,168h7v8H846Z"/>
-  <path id="Room_02" class="cls-4" d="M490,1643H673v-8h24V1498H682v-31H489Z"/>
-  <path id="Room_03" class="cls-4" d="M442,1462V1325h9v-12H608v101h3v48H442Z"/>
 </svg>

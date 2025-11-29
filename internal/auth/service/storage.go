@@ -62,6 +62,14 @@ func (s *FileStorage) JSONPath(userID, filename string) string {
 	return filepath.Join(s.JSONDir(userID), filename)
 }
 
+func (s *FileStorage) EditedJSONDir(userID string) string {
+	return filepath.Join(s.JSONDir(userID), "edited")
+}
+
+func (s *FileStorage) EditedJSONPath(userID, filename string) string {
+	return filepath.Join(s.EditedJSONDir(userID), filename)
+}
+
 func (s *FileStorage) EnsureDir(userID string) error {
 	path := s.UserDir(userID)
 	if err := os.MkdirAll(path, 0o755); err != nil {
@@ -90,6 +98,14 @@ func (s *FileStorage) EnsureJSONDir(userID string) error {
 	path := s.JSONDir(userID)
 	if err := os.MkdirAll(path, 0o755); err != nil {
 		return fmt.Errorf("mkdir json dir: %w", err)
+	}
+	return nil
+}
+
+func (s *FileStorage) EnsureEditedJSONDir(userID string) error {
+	path := s.EditedJSONDir(userID)
+	if err := os.MkdirAll(path, 0o755); err != nil {
+		return fmt.Errorf("mkdir edited json dir: %w", err)
 	}
 	return nil
 }

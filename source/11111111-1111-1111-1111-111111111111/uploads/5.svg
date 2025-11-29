@@ -24,10 +24,10 @@
       }
     </style>
   </defs>
-  <path id="Wall_01-2" data-name="Wall_01" class="cls-1" d="M1325,1295v8H1054v-9Z"/>
-  <path id="Wall_02" class="cls-2" d="M1324,934v369h-10V933Z"/>
-  <path id="Wall_03" class="cls-2" d="M1040,934v18h284V934H1040Z"/>
-  <path id="Wall_04" class="cls-2" d="M1064,1304V952h-24v352h24Z"/>
+  <path id="Hui_Wall_01" class="cls-1" d="M1325,1295v8H1054v-9Z"/>
+  <path id="Hui_Wall_02" class="cls-2" d="M1324,934v369h-10V933Z"/>
+  <path id="Hui_Wall_03" class="cls-2" d="M1040,934v18h284V934H1040Z"/>
+  <path id="Hui_Wall_04" class="cls-2" d="M1064,1304V952h-24v352h24Z"/>
   <path id="Wall_05" class="cls-2" d="M1193,952v202h-6V951Z"/>
   <path id="Wall_06" class="cls-2" d="M1140,1211l53-58-4-4-52,56Z"/>
   <path id="Wall_07" class="cls-2" d="M1064,1205v6h77v-6h-77Z"/>

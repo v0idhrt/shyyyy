@@ -23,17 +23,17 @@
       }
     </style>
   </defs>
-  <path id="Wall_01" class="cls-1" d="M741,1244v11H981v-12Z"/>
-  <path id="Wall_02" class="cls-1" d="M982,1376V1255H969v121h13Z"/>
+  <path id="Hui_Wall_01" class="cls-1" d="M741,1244v11H981v-12Z"/>
+  <path id="Hui_Wall_02" class="cls-1" d="M982,1376V1255H969v121h13Z"/>
   <path id="Wall_03" class="cls-1" d="M804,1375v9H981v-9H804Z"/>
-  <path id="Wall_04" class="cls-1" d="M754,1318H743v-63h11v63Z"/>
-  <path id="Wall_05" class="cls-1" d="M647,1305v13h96v-13H647Z"/>
-  <path id="Wall_06" class="cls-1" d="M659,1569V1318H647v251h12Z"/>
-  <rect id="Wall_07" class="cls-2" x="632" y="1568" width="36" height="28"/>
-  <path id="Wall_08" class="cls-1" d="M814,1577v19H668v-19H814Z"/>
-  <path id="Wall_09" class="cls-1" d="M849,1568H813v28h36v-28Z"/>
-  <path id="Wall_10" class="cls-1" d="M973,1577v19H848v-19H973Z"/>
-  <path id="Wall_11" class="cls-1" d="M982,1596H972V1384h10v212Z"/>
+  <path id="Hui_Wall_03" class="cls-1" d="M754,1318H743v-63h11v63Z"/>
+  <path id="Hui_Wall_04" class="cls-1" d="M647,1305v13h96v-13H647Z"/>
+  <path id="Hui_Wall_05" class="cls-1" d="M659,1569V1318H647v251h12Z"/>
+  <rect id="Hui_Wall_06" class="cls-2" x="632" y="1568" width="36" height="28"/>
+  <path id="Hui_Wall_07" class="cls-1" d="M814,1577v19H668v-19H814Z"/>
+  <path id="Hui_Wall_08" class="cls-1" d="M849,1568H813v28h36v-28Z"/>
+  <path id="Hui_Wall_09" class="cls-1" d="M973,1577v19H848v-19H973Z"/>
+  <path id="Hui_Wall_10" class="cls-1" d="M982,1596H972V1384h10v212Z"/>
   <path id="Wall_12" class="cls-1" d="M886,1384v22h6v-22h-6Z"/>
   <path id="Wall_13" class="cls-1" d="M972,1400H891v6h81v-6Z"/>
   <path id="Wall_14" class="cls-1" d="M892,1255v121h-6V1255h6Z"/>

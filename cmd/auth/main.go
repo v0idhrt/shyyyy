@@ -93,6 +93,8 @@ func main() {
 	app.Get("/users/:id/svg-edited-json", authHandler.GetEditedSVGAsJSON)
 	app.Post("/users/:id/json", authHandler.UploadJSON)
 	app.Get("/users/:id/json", authHandler.GetJSON)
+	app.Post("/users/:id/json-edited", authHandler.UploadEditedJSON)
+	app.Get("/users/:id/json-edited", authHandler.GetEditedJSON)
 
 	// ============================================================
 	// Server Start
