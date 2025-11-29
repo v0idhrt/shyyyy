@@ -9,6 +9,7 @@
 - `GET /health/*` - health checks
 - `GET /api/v1/` - info
 - `POST /api/v1/convert` - proxy → Converter Service
+- `POST /api/v1/render` - proxy → Converter Service
 
 **Компоненты:**
 - `cmd/gateway` - точка входа
@@ -21,6 +22,7 @@
 **Endpoints:**
 - `GET /health/*` - health checks
 - `POST /convert` - конвертация SVG
+- `POST /render` - конвертация JSON → SVG
 
 **Компоненты:**
 - `cmd/converter` - точка входа

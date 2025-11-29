@@ -77,6 +77,22 @@ file: <SVG file>
 }
 ```
 
+### POST /api/v1/render
+
+Конвертация react-planner JSON обратно в SVG.
+
+**Request:**
+```
+Content-Type: application/json
+
+<scene JSON>
+```
+
+**Response:**
+- `200 OK` — SVG строка (`image/svg+xml`)
+- `400 Bad Request` — некорректный JSON
+- `500 Internal Server Error` — ошибка сборки SVG
+
 ## SVG Требования
 
 ### ID префиксы

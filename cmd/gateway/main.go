@@ -63,6 +63,7 @@ func main() {
 	// Converter Service
 	converterURL := getEnv("CONVERTER_URL", "http://localhost:3001")
 	api.Post("/convert", proxy.ProxyTo(converterURL+"/convert"))
+	api.Post("/render", proxy.ProxyTo(converterURL+"/render"))
 
 	// ============================================================
 	// Server Start

@@ -6,6 +6,7 @@ import (
 	"log"
 	"mime/multipart"
 	"net/textproto"
+	"strings"
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/client"
@@ -22,6 +23,27 @@ func ProxyTo(targetURL string) fiber.Handler {
 		log.Printf("[PROXY] Content-Type: %s", c.Get("Content-Type"))
 		log.Printf("[PROXY] Content-Length: %d", len(c.Body()))
 		log.Printf("[PROXY] Forwarding to: %s", targetURL)
+
+		contentType := c.Get("Content-Type")
+		if !strings.HasPrefix(contentType, "multipart/form-data") {
+			// Raw pass-through (например, JSON)
+			headers := map[string]string{}
+			if contentType != "" {
+				headers["Content-Type"] = contentType
+			}
+
+			resp, err := client.Post(targetURL, client.Config{
+				Header: headers,
+				Body:   c.Body(),
+			})
+			if err != nil {
+				log.Printf("[PROXY] Error: %v", err)
+				return c.Status(502).JSON(fiber.Map{"error": "failed to reach upstream service"})
+			}
+
+			c.Status(resp.StatusCode())
+			return c.Send(resp.Body())
+		}
 
 		// Парсим multipart
 		form, err := c.MultipartForm()

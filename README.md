@@ -50,11 +50,13 @@ PORT=3001  # default
 - `GET /health/startup` - startup probe
 - `GET /api/v1/` - API info
 - `POST /api/v1/convert` - SVG конвертер (proxy → Converter)
+- `POST /api/v1/render` - обратная конвертация JSON → SVG (proxy → Converter)
 
 ### Converter Service (`:3001`)
 - `GET /health/live` - liveness probe
 - `GET /health/ready` - readiness probe
 - `POST /convert` - конвертация SVG
+- `POST /render` - конвертация JSON → SVG
 
 ## SVG Converter
 

@@ -5,8 +5,9 @@ bin/
 *.dll
 *.so
 *.dylib
-
+/.gocache
 # Build artifacts
+
 *.test
 *.out
 *.o

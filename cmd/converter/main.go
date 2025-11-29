@@ -50,6 +50,7 @@ func main() {
 	// ============================================================
 
 	app.Post("/convert", handlers.ConvertSVG)
+	app.Post("/render", handlers.RenderSVG)
 
 	// ============================================================
 	// Server Start
