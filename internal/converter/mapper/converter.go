@@ -137,6 +137,8 @@ func (c *Converter) createHole(elem models.SVGElement, holeType string) *models.
 		return nil
 	}
 
+	lineThickness := c.getLineThickness(lineID)
+
 	hole := &models.Hole{
 		ID:         elem.ID,
 		Name:       elem.ID,
@@ -144,7 +146,7 @@ func (c *Converter) createHole(elem models.SVGElement, holeType string) *models.
 		Prototype:  "holes",
 		Line:       lineID,
 		Offset:     offset,
-		Properties: holeProperties(elem, holeType),
+		Properties: holeProperties(elem, holeType, lineThickness),
 	}
 
 	// Привязываем hole к линии
@@ -346,8 +348,24 @@ func defaultGuides() models.Guides {
 	}
 }
 
+func (c *Converter) getLineThickness(lineID string) float64 {
+	line, ok := c.builder.GetLines()[lineID]
+	if !ok {
+		return 0
+	}
+	if line.Properties == nil {
+		return 0
+	}
+	if t, ok := line.Properties["thickness"].(map[string]any); ok {
+		if val, ok := t["length"].(float64); ok {
+			return val
+		}
+	}
+	return 0
+}
+
 // Вычисляет свойства проемов на основе геометрии (ширина/толщина), остальное — дефолты.
-func holeProperties(elem models.SVGElement, holeType string) map[string]any {
+func holeProperties(elem models.SVGElement, holeType string, lineThickness float64) map[string]any {
 	width := 80.0
 	thickness := 30.0
 
@@ -389,6 +407,10 @@ func holeProperties(elem models.SVGElement, holeType string) map[string]any {
 				thickness = t
 			}
 		}
+	}
+
+	if lineThickness > 0 && thickness > lineThickness {
+		thickness = lineThickness
 	}
 
 	if holeType == "window" {
