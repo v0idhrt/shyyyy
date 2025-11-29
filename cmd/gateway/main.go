@@ -44,6 +44,14 @@ func main() {
 	app.Get("/health/startup", handlers.StartupProbe)
 
 	// ============================================================
+	// Docs
+	// ============================================================
+
+	docsGroup := app.Group("/docs")
+	docsGroup.Get("/openapi.yaml", handlers.SwaggerSpec)
+	docsGroup.Get("/swagger", handlers.SwaggerUI)
+
+	// ============================================================
 	// API Routes
 	// ============================================================
 

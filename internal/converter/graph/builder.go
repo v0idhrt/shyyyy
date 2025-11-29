@@ -15,6 +15,7 @@ import (
 
 const tolerance = 2.0       // Tolerance для объединения близких точек
 const connectTolerance = 15 // Насколько можно тянуть стену до пересечения
+const mergeTolerance = 12.0 // Радиус склейки близких вершин после разрезания сегментов
 
 type GraphBuilder struct {
 	vertices  map[string]models.Vertex
@@ -237,6 +238,8 @@ func (g *GraphBuilder) buildConnectedGraph() {
 		g.attachLineToVertex(v1ID, line.ID)
 		g.attachLineToVertex(v2ID, line.ID)
 	}
+
+	g.mergeCloseVertices()
 }
 
 func (g *GraphBuilder) splitSegments(segments []wallSegment) []wallSegment {
@@ -379,6 +382,115 @@ func almostEqual(a, b float64) bool {
 	return math.Abs(a-b) < 1e-6
 }
 
+// mergeCloseVertices объединяет вершины, которые находятся совсем рядом после разрезания сегментов.
+func (g *GraphBuilder) mergeCloseVertices() {
+	if len(g.vertices) == 0 {
+		return
+	}
+
+	ids := make([]string, 0, len(g.vertices))
+	for id := range g.vertices {
+		ids = append(ids, id)
+	}
+	sort.Strings(ids)
+
+	rep := make(map[string]string, len(ids))
+
+	for i, id := range ids {
+		if _, ok := rep[id]; ok {
+			continue
+		}
+		base := g.vertices[id]
+		rep[id] = id
+
+		for j := i + 1; j < len(ids); j++ {
+			otherID := ids[j]
+			if _, ok := rep[otherID]; ok {
+				continue
+			}
+			other := g.vertices[otherID]
+			if distance(models.Point{X: base.X, Y: base.Y}, models.Point{X: other.X, Y: other.Y}) <= mergeTolerance {
+				rep[otherID] = id
+				base.Lines = appendUnique(base.Lines, other.Lines...)
+				base.Areas = appendUnique(base.Areas, other.Areas...)
+			}
+		}
+		g.vertices[id] = base
+	}
+
+	repOf := func(id string) string {
+		if v, ok := rep[id]; ok {
+			return v
+		}
+		return id
+	}
+
+	newLines := make(map[string]models.Line, len(g.lines))
+	for id, line := range g.lines {
+		if len(line.Vertices) < 2 {
+			continue
+		}
+
+		v1 := repOf(line.Vertices[0])
+		v2 := repOf(line.Vertices[1])
+		if v1 == v2 {
+			continue
+		}
+		line.Vertices = []string{v1, v2}
+		newLines[id] = line
+	}
+
+	newVertices := make(map[string]models.Vertex)
+	for oldID, v := range g.vertices {
+		if repOf(oldID) != oldID {
+			continue
+		}
+		newVertices[oldID] = models.Vertex{
+			ID:        v.ID,
+			Name:      v.Name,
+			Type:      v.Type,
+			Prototype: v.Prototype,
+			X:         v.X,
+			Y:         v.Y,
+			Lines:     []string{},
+			Areas:     append([]string{}, v.Areas...),
+			Selected:  v.Selected,
+			Properties: func() map[string]any {
+				if v.Properties == nil {
+					return nil
+				}
+				cp := make(map[string]any, len(v.Properties))
+				for k, val := range v.Properties {
+					cp[k] = val
+				}
+				return cp
+			}(),
+			Misc: func() map[string]any {
+				if v.Misc == nil {
+					return nil
+				}
+				cp := make(map[string]any, len(v.Misc))
+				for k, val := range v.Misc {
+					cp[k] = val
+				}
+				return cp
+			}(),
+		}
+	}
+
+	// Пересобираем Line ссылки
+	for lineID, line := range newLines {
+		for _, vid := range line.Vertices {
+			v := newVertices[vid]
+			v.Lines = appendUnique(v.Lines, []string{lineID}...)
+			newVertices[vid] = v
+		}
+	}
+
+	g.vertices = newVertices
+	g.lines = newLines
+}
+
 // ============================================================
 // Helpers
 // ============================================================
@@ -423,6 +535,15 @@ func contains(list []string, target string) bool {
 		}
 	}
 	return false
+}
+
+func appendUnique(dst []string, src ...string) []string {
+	for _, s := range src {
+		if !contains(dst, s) {
+			dst = append(dst, s)
+		}
+	}
+	return dst
 }
 
 func defaultWallProperties(thickness float64) map[string]any {
