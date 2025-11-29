@@ -15,9 +15,10 @@ import (
 // ============================================================
 
 type Converter struct {
-	elements []models.SVGElement
-	builder  *graph.GraphBuilder
-	bbox     *boundingBox
+	elements      []models.SVGElement
+	builder       *graph.GraphBuilder
+	bbox          *boundingBox
+	transformFunc func(models.Point) models.Point
 }
 
 func New() *Converter {
@@ -28,6 +29,9 @@ func New() *Converter {
 
 // Convert SVG → react-planner JSON
 func (c *Converter) Convert(r io.Reader) (*models.Scene, error) {
+	const sceneWidth = 3000.0
+	const sceneHeight = 2000.0
+
 	// Парсинг SVG
 	elements, err := parser.ParseSVG(r)
 	if err != nil {
@@ -41,7 +45,8 @@ func (c *Converter) Convert(r io.Reader) (*models.Scene, error) {
 		return nil, fmt.Errorf("bbox: %w", err)
 	}
 	c.bbox = box
-	c.builder.SetTransform(c.mirrorTransform())
+	c.transformFunc = c.mirrorTransform(sceneWidth, sceneHeight)
+	c.builder.SetTransform(c.transformFunc)
 
 	// Разделяем элементы по типам
 	var walls, doors, windows, rooms, balconies []models.SVGElement
@@ -109,8 +114,8 @@ func (c *Converter) Convert(r io.Reader) (*models.Scene, error) {
 		SelectedLayer: "layer-1",
 		Grids:         defaultGrids(),
 		Groups:        map[string]any{},
-		Width:         3000,
-		Height:        2000,
+		Width:         sceneWidth,
+		Height:        sceneHeight,
 		Meta:          map[string]any{},
 		Guides:        defaultGuides(),
 	}
@@ -195,7 +200,7 @@ func (c *Converter) getElementCenter(elem models.SVGElement) *models.Point {
 			X: geom.X + geom.Width/2,
 			Y: geom.Y + geom.Height/2,
 		}
-		t := c.mirrorTransform()(p)
+		t := c.transformFunc(p)
 		return &t
 	case models.PathGeometry:
 		points, err := parser.ParsePath(geom.D)
@@ -212,7 +217,7 @@ func (c *Converter) getElementCenter(elem models.SVGElement) *models.Point {
 			X: sumX / float64(len(points)),
 			Y: sumY / float64(len(points)),
 		}
-		t := c.mirrorTransform()(p)
+		t := c.transformFunc(p)
 		return &t
 	}
 	return nil
@@ -458,25 +463,27 @@ func calculateBoundingBox(elems []models.SVGElement) (*boundingBox, error) {
 	return box, nil
 }
 
-func (c *Converter) mirrorTransform() func(models.Point) models.Point {
+func (c *Converter) mirrorTransform(sceneWidth, sceneHeight float64) func(models.Point) models.Point {
 	if c.bbox == nil {
 		return func(p models.Point) models.Point { return p }
 	}
 
 	box := *c.bbox
+	width := box.maxX - box.minX
+	height := box.maxY - box.minY
 
 	return func(p models.Point) models.Point {
-		// Зеркалим по X, нормализуем в (0,0)
-		x := (box.maxX + box.minX) - p.X
-		y := p.Y
-		x -= box.minX
-		y -= box.minY
+		// Зеркалим по Y, затем центрируем на сцену
+		x := p.X - box.minX
+		y := height - (p.Y - box.minY)
+		x += (sceneWidth - width) / 2
+		y += (sceneHeight - height) / 2
 		return models.Point{X: x, Y: y}
 	}
 }
 
 func (c *Converter) applyTransform(points []models.Point) []models.Point {
-	tf := c.mirrorTransform()
+	tf := c.transformFunc
 	out := make([]models.Point, 0, len(points))
 	for _, p := range points {
 		out = append(out, tf(p))

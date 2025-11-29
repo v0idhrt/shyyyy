@@ -1,4 +1,4 @@
-.PHONY: help gateway converter build-all run-gateway run-converter
+.PHONY: help gateway converter build-all run-gateway run-converter mirror
 
 help:
 	@echo "Доступные команды:"
@@ -6,10 +6,15 @@ help:
 	@echo "  make converter        - запустить Converter Service"
 	@echo "  make build-all        - собрать все сервисы"
 	@echo "  make run-all          - запустить все сервисы (фоново)"
+	@echo "  make mirror           - отразить координаты X в test.json"
 
 build-all:
 	go build -o bin/gateway ./cmd/gateway
 	go build -o bin/converter ./cmd/converter
+	go build -o bin/mirror ./cmd/mirror
+
+mirror:
+	go run ./cmd/mirror -i test.json -o test.json
 
 gateway:
 	PORT=3000 CONVERTER_URL=http://localhost:3001 go run ./cmd/gateway/main.go
