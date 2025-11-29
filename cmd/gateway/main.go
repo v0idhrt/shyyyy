@@ -125,7 +125,10 @@ func main() {
 
 	// ComfyUI Service
 	comfyuiURL := getEnv("COMFYUI_SERVICE_URL", "http://localhost:3003")
-	api.Post("/comfyui/process", proxy.ProxyTo(comfyuiURL+"/process"))
+	api.Post("/comfyui/submit", proxy.ProxyTo(comfyuiURL+"/submit"))
+	api.Get("/comfyui/progress/:job_id", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/progress/%s", comfyuiURL, c.Params("job_id")))
+	})
 	api.Get("/comfyui/download/:user_id/:filename", func(c fiber.Ctx) error {
 		return proxy.Forward(c, fmt.Sprintf("%s/download/%s/%s", comfyuiURL, c.Params("user_id"), c.Params("filename")))
 	})
