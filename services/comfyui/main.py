@@ -1,9 +1,7 @@
 import json
 import uuid
-import os
 import asyncio
 import aiohttp
-import websockets
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.responses import FileResponse, StreamingResponse
 from pathlib import Path
@@ -37,105 +35,19 @@ async def queue_workflow(workflow: dict) -> str:
     """Постановка workflow в очередь ComfyUI"""
     async with aiohttp.ClientSession() as session:
         payload = {"prompt": workflow}
+
+        print(f"[COMFYUI] Sending workflow to {COMFYUI_URL}/prompt")
+        print(f"[COMFYUI] Workflow nodes: {list(workflow.keys())[:5]}...")  # Первые 5 нод
+
         async with session.post(f"{COMFYUI_URL}/prompt", json=payload) as resp:
+            print(f"[COMFYUI] Queue response status: {resp.status}")
             result = await resp.json()
+            print(f"[COMFYUI] Queue response: {result}")
+
+            if 'prompt_id' not in result:
+                raise Exception(f"No prompt_id in response: {result}")
+
             return result['prompt_id']
-
-async def listen_websocket(prompt_id: str, client_id: str, completed_event: asyncio.Event, progress_queue: asyncio.Queue = None):
-    """Слушаем WebSocket для прогресса и завершения с автоматическим переподключением"""
-    uri = f"ws://localhost:8000/ws?clientId={client_id}"
-
-    node_1239_executed = False
-    max_retries = 10
-    retry_delay = 2
-
-    for attempt in range(max_retries):
-        try:
-            print(f"[COMFYUI] Connecting to WebSocket (attempt {attempt + 1}/{max_retries}): {uri}")
-
-            async with websockets.connect(uri, open_timeout=300, close_timeout=10, ping_interval=None) as ws:
-                print(f"[COMFYUI] WebSocket connected successfully")
-
-                while True:
-                    try:
-                        message = await asyncio.wait_for(ws.recv(), timeout=300)
-                        data = json.loads(message)
-
-                        msg_type = data.get('type')
-
-                        # Логируем все события для дебага
-                        print(f"[COMFYUI] WS event: {msg_type} | data: {data.get('data', {})}")
-
-                        if msg_type == 'execution_start':
-                            ws_prompt_id = data.get('data', {}).get('prompt_id')
-                            if ws_prompt_id == prompt_id:
-                                print(f"[COMFYUI] Workflow execution started!")
-                                if progress_queue:
-                                    await progress_queue.put({"type": "execution_start", "message": "Workflow execution started"})
-
-                        if msg_type == 'executing':
-                            node = data.get('data', {}).get('node')
-                            ws_prompt_id = data.get('data', {}).get('prompt_id')
-
-                            if ws_prompt_id == prompt_id:
-                                # Отслеживаем выполнение ноды 1239 (Save Image)
-                                if node == '1239':
-                                    node_1239_executed = True
-                                    print(f"[COMFYUI] Node 1239 (Save Image) started executing")
-                                    if progress_queue:
-                                        await progress_queue.put({"type": "node_executing", "node": node, "message": "Saving image"})
-
-                                # Завершаем только если нода 1239 уже выполнялась и пришёл node=null
-                                if node is None and node_1239_executed:
-                                    print(f"[COMFYUI] Workflow completed! (node 1239 finished, workflow ended)")
-                                    completed_event.set()
-                                    return
-                                elif node:
-                                    print(f"[COMFYUI] Executing node: {node}")
-                                    if progress_queue:
-                                        await progress_queue.put({"type": "node_executing", "node": node, "message": f"Executing node {node}"})
-
-                        if msg_type == 'progress':
-                            value = data.get('data', {}).get('value', 0)
-                            max_val = data.get('data', {}).get('max', 100)
-                            node = data.get('data', {}).get('node', '?')
-                            print(f"[COMFYUI] Progress [{node}]: {value}/{max_val}")
-                            if progress_queue:
-                                await progress_queue.put({
-                                    "type": "progress",
-                                    "node": node,
-                                    "value": value,
-                                    "max": max_val,
-                                    "percent": int((value / max_val) * 100) if max_val > 0 else 0
-                                })
-
-                    except asyncio.TimeoutError:
-                        print(f"[COMFYUI] WebSocket timeout - workflow took too long")
-                        raise TimeoutError("Workflow execution timeout")
-                    except websockets.exceptions.ConnectionClosed as e:
-                        print(f"[COMFYUI] WebSocket connection closed: {e}")
-                        # Переподключаемся
-                        break
-                    except Exception as e:
-                        print(f"[COMFYUI] WebSocket message error: {e}")
-                        break
-
-        except asyncio.TimeoutError:
-            print(f"[COMFYUI] WebSocket handshake timeout on attempt {attempt + 1}")
-            if attempt < max_retries - 1:
-                print(f"[COMFYUI] Retrying in {retry_delay} seconds...")
-                await asyncio.sleep(retry_delay)
-                continue
-            else:
-                raise TimeoutError("WebSocket handshake failed after all retries")
-        except Exception as e:
-            print(f"[COMFYUI] WebSocket connection error on attempt {attempt + 1}: {e}")
-            if attempt < max_retries - 1:
-                print(f"[COMFYUI] Retrying in {retry_delay} seconds...")
-                await asyncio.sleep(retry_delay)
-                continue
-            else:
-                raise Exception(f"WebSocket connection failed after {max_retries} attempts: {e}")
 
 async def poll_history(prompt_id: str):
     """Polling /history каждую секунду"""
@@ -170,42 +82,6 @@ async def poll_history(prompt_id: str):
                 continue
 
         raise TimeoutError(f"Workflow did not complete in {max_attempts} seconds")
-
-async def wait_for_completion(prompt_id: str, client_id: str, progress_queue: asyncio.Queue = None):
-    """Ожидание завершения через WebSocket + polling как backup"""
-    completed_event = asyncio.Event()
-
-    # Запускаем WebSocket и polling параллельно
-    # Завершаемся когда любая из задач успешно завершится
-    ws_task = asyncio.create_task(listen_websocket(prompt_id, client_id, completed_event, progress_queue))
-    poll_task = asyncio.create_task(poll_history(prompt_id))
-
-    done, pending = await asyncio.wait(
-        [ws_task, poll_task],
-        return_when=asyncio.FIRST_COMPLETED
-    )
-
-    # Отменяем незавершенные задачи
-    for task in pending:
-        task.cancel()
-        try:
-            await task
-        except asyncio.CancelledError:
-            pass
-
-    # Проверяем результат завершенной задачи
-    for task in done:
-        try:
-            result = task.result()
-            print(f"[COMFYUI] Completion detected by: {'WebSocket' if task == ws_task else 'Polling'}")
-            return result
-        except Exception as e:
-            # Если одна задача упала, проверяем другую
-            print(f"[COMFYUI] Task failed: {e}")
-            continue
-
-    # Если обе упали, пробрасываем исключение
-    raise Exception("Both WebSocket and polling failed")
 
 async def get_result_image(prompt_id: str) -> tuple:
     """Получение результата из history"""
@@ -277,21 +153,23 @@ async def process_workflow_background(job_id: str, gray_bytes: bytes, gray_filen
         workflow["1222"]["inputs"]["image"] = gray_name
         workflow["1231"]["inputs"]["image"] = ref_name
 
-        # 3. Постановка в очередь
+        # 3. Постановка workflow в очередь и ожидание через polling
         await send_progress("status", {"message": "Queueing workflow"})
+        print(f"[COMFYUI] Job {job_id}: Queueing workflow to ComfyUI...")
         prompt_id = await queue_workflow(workflow)
-        client_id = str(uuid.uuid4())
+        print(f"[COMFYUI] Job {job_id}: Workflow queued with prompt_id={prompt_id}")
 
         await send_progress("queued", {"prompt_id": prompt_id, "message": "Workflow queued"})
 
-        # 4. Ожидание завершения
-        await wait_for_completion(prompt_id, client_id, progress_queue)
+        await send_progress("status", {"message": "Waiting for completion (polling)"})
+        print(f"[COMFYUI] Job {job_id}: Waiting for completion via polling...")
+        await poll_history(prompt_id)
 
-        # 5. Получение результата
+        # 6. Получение результата
         await send_progress("status", {"message": "Downloading result"})
         result_filename, result_bytes = await get_result_image(prompt_id)
 
-        # 6. Сохранение локально
+        # 7. Сохранение локально
         save_dir = Path(STORAGE_PATH) / user_id / "comfyui" / "results"
         save_dir.mkdir(parents=True, exist_ok=True)
 
@@ -299,7 +177,7 @@ async def process_workflow_background(job_id: str, gray_bytes: bytes, gray_filen
         with open(save_path, 'wb') as f:
             f.write(result_bytes)
 
-        # 7. Сохранение результата
+        # 8. Сохранение результата
         jobs[job_id]["result"] = {
             "prompt_id": prompt_id,
             "result_url": f"/download/{user_id}/{prompt_id}_result.png"
