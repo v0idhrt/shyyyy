@@ -240,6 +240,12 @@ func (c *Converter) createBalconyItems(elems []models.SVGElement, target map[str
 	cx := (minX + maxX) / 2
 	cy := (minY + maxY) / 2
 
+	// Если балкон ориентирован вертикально (высота > ширины), поворачиваем на 90deg и меняем width/depth
+	if depth > width {
+		rotation += 90
+		width, depth = depth, width
+	}
+
 	itemID := elems[0].ID
 
 	item := models.Item{
