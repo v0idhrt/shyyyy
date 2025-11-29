@@ -211,6 +211,7 @@ func (c *Converter) createBalconyItems(elems []models.SVGElement, target map[str
 
 	centroid := averagePoint(allPoints)
 	_, rotation := c.findNearestWallAngle(centroid)
+	rotation = normalizeAngle(rotation + 180) // развернуть, чтобы стена балкона шла к стене здания
 
 	minX, maxX := allPoints[0].X, allPoints[0].X
 	minY, maxY := allPoints[0].Y, allPoints[0].Y
@@ -700,4 +701,14 @@ func bboxAlongAxis(points []models.Point, angleDeg float64) (width, depth, cx, c
 	worldY := cx*sin + cy*cos
 	cx, cy = worldX, worldY
 	return
+}
+
+func normalizeAngle(angle float64) float64 {
+	for angle > 180 {
+		angle -= 360
+	}
+	for angle <= -180 {
+		angle += 360
+	}
+	return angle
 }
