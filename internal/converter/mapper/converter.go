@@ -210,8 +210,7 @@ func (c *Converter) createBalconyItems(elems []models.SVGElement, target map[str
 	}
 
 	centroid := averagePoint(allPoints)
-	lineID, angleDeg := c.findNearestWallAngle(centroid)
-	rotation := angleDeg
+	_, rotation := c.findNearestWallAngle(centroid)
 
 	minX, maxX := allPoints[0].X, allPoints[0].X
 	minY, maxY := allPoints[0].Y, allPoints[0].Y
@@ -254,7 +253,6 @@ func (c *Converter) createBalconyItems(elems []models.SVGElement, target map[str
 		Selected:   false,
 		Visible:    true,
 		Properties: defaultBalconyProperties(width, depth),
-		Misc:       map[string]any{"wall": lineID},
 	}
 
 	target[itemID] = item
