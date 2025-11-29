@@ -209,13 +209,9 @@ func (c *Converter) createBalconyItems(elems []models.SVGElement, target map[str
 		return
 	}
 
-	// Ориентация по первой стороне первого элемента
-	rotation := 0.0
-	if pts, err := c.getElementPoints(elems[0]); err == nil && len(pts) >= 2 {
-		dx := pts[1].X - pts[0].X
-		dy := pts[1].Y - pts[0].Y
-		rotation = math.Atan2(dy, dx) * 180 / math.Pi // в градусах
-	}
+	centroid := averagePoint(allPoints)
+	lineID, angleDeg := c.findNearestWallAngle(centroid)
+	rotation := angleDeg
 
 	minX, maxX := allPoints[0].X, allPoints[0].X
 	minY, maxY := allPoints[0].Y, allPoints[0].Y
@@ -258,6 +254,7 @@ func (c *Converter) createBalconyItems(elems []models.SVGElement, target map[str
 		Selected:   false,
 		Visible:    true,
 		Properties: defaultBalconyProperties(width, depth),
+		Misc:       map[string]any{"wall": lineID},
 	}
 
 	target[itemID] = item
