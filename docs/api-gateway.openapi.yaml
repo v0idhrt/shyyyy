@@ -443,24 +443,37 @@ paths:
                 type: object
                 additionalProperties: true
     post:
-      summary: Upload edited JSON file (proxy Auth)
+      summary: Upload edited JSON as raw data (proxy Auth)
       parameters:
         - $ref: "#/components/parameters/UserId"
+        - in: query
+          name: name
+          schema:
+            type: string
+          required: false
+          description: Имя файла (опционально, если не указан - генерируется автоматически)
       requestBody:
         required: true
         content:
-          multipart/form-data:
+          application/json:
             schema:
               type: object
-              properties:
-                file:
-                  type: string
-                  format: binary
-                  description: JSON файл
-              required: [file]
+              additionalProperties: true
+              description: Raw JSON данные для сохранения
       responses:
-        "200":
+        "201":
           description: Saved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  path:
+                    type: string
+                  filename:
+                    type: string
+        "400":
+          description: Invalid JSON
 
   /api/v1/users/{id}/json-to-svg:
     post:

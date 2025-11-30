@@ -12,6 +12,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"api-gateway/internal/auth/models"
 	"api-gateway/internal/auth/repository"
@@ -218,7 +219,45 @@ func (h *AuthHandler) UploadJSON(c fiber.Ctx) error {
 
 // UploadEditedJSON сохраняет измененный json в json/edited/.
 func (h *AuthHandler) UploadEditedJSON(c fiber.Ctx) error {
-	return h.saveFileToDir(c, h.storage.EnsureEditedJSONDir, h.storage.EditedJSONPath, ".json")
+	userID := c.Params("id")
+	
+	// Читаем raw JSON из body
+	jsonData := c.Body()
+	if len(jsonData) == 0 {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "empty body"})
+	}
+	
+	// Валидируем JSON
+	var tmp interface{}
+	if err := json.Unmarshal(jsonData, &tmp); err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "invalid json"})
+	}
+	
+	// Получаем имя файла из query параметра или генерируем
+	filename := c.Query("name")
+	if filename == "" {
+		// Генерируем имя на основе timestamp
+		filename = fmt.Sprintf("edited_%d.json", time.Now().Unix())
+	} else if !strings.HasSuffix(filename, ".json") {
+		filename += ".json"
+	}
+	
+	// Создаем директорию если нужно
+	if err := h.storage.EnsureEditedJSONDir(userID); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to prepare directory"})
+	}
+	
+	// Сохраняем файл
+	targetPath := h.storage.EditedJSONPath(userID, filename)
+	if err := h.storage.SaveFile(userID, targetPath, jsonData); err != nil {
+		log.Printf("[AUTH] save edited json error: %v", err)
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to save file"})
+	}
+	
+	return c.Status(http.StatusCreated).JSON(fiber.Map{
+		"path":     targetPath,
+		"filename": filename,
+	})
 }
 
 // UploadEditedSVG сохраняет измененный svg в svg/edited/.
