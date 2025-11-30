@@ -260,6 +260,104 @@ func (h *AuthHandler) UploadEditedJSON(c fiber.Ctx) error {
 	})
 }
 
+// SaveEditedJSONAndGeneratePDF сохраняет edited JSON и генерирует PDF отчёт.
+func (h *AuthHandler) SaveEditedJSONAndGeneratePDF(c fiber.Ctx) error {
+	userID := c.Params("id")
+	
+	// Получаем обязательный параметр name
+	name := c.Query("name")
+	if name == "" {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "name parameter required"})
+	}
+	
+	// Убираем расширение если есть
+	fileID := strings.TrimSuffix(name, ".json")
+	filename := fileID + ".json"
+	svgFilename := fileID + ".svg"
+	
+	// Читаем raw JSON из body
+	editedJSONData := c.Body()
+	if len(editedJSONData) == 0 {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "empty body"})
+	}
+	
+	// Валидируем JSON
+	var tmp interface{}
+	if err := json.Unmarshal(editedJSONData, &tmp); err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "invalid json"})
+	}
+	
+	// Создаем директорию для edited JSON
+	if err := h.storage.EnsureEditedJSONDir(userID); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to prepare edited json dir"})
+	}
+	
+	// Сохраняем edited JSON
+	editedJSONPath := h.storage.EditedJSONPath(userID, filename)
+	if err := h.storage.SaveFile(userID, editedJSONPath, editedJSONData); err != nil {
+		log.Printf("[AUTH] save edited json error: %v", err)
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to save edited json"})
+	}
+	
+	// Проверяем и читаем оригинальный JSON
+	originalJSONPath := h.storage.JSONPath(userID, filename)
+	originalJSONData, err := os.ReadFile(originalJSONPath)
+	if err != nil {
+		return c.Status(http.StatusNotFound).JSON(fiber.Map{
+			"error": "original json not found",
+			"path":  originalJSONPath,
+		})
+	}
+	
+	// Конвертируем оригинальный JSON в SVG
+	originalSVG, err := h.renderScene(originalJSONData)
+	if err != nil {
+		log.Printf("[AUTH] render original json error: %v", err)
+		return c.Status(http.StatusBadGateway).JSON(fiber.Map{"error": "failed to convert original json to svg"})
+	}
+	
+	// Конвертируем edited JSON в SVG
+	editedSVG, err := h.renderScene(editedJSONData)
+	if err != nil {
+		log.Printf("[AUTH] render edited json error: %v", err)
+		return c.Status(http.StatusBadGateway).JSON(fiber.Map{"error": "failed to convert edited json to svg"})
+	}
+	
+	// Создаем директории для SVG
+	if err := h.storage.EnsureSVGDir(userID); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to prepare svg dir"})
+	}
+	if err := h.storage.EnsureEditedSVGDir(userID); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to prepare edited svg dir"})
+	}
+	
+	// Сохраняем оригинальный SVG
+	originalSVGPath := h.storage.SVGPath(userID, svgFilename)
+	if err := h.storage.SaveFile(userID, originalSVGPath, originalSVG); err != nil {
+		log.Printf("[AUTH] save original svg error: %v", err)
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to save original svg"})
+	}
+	
+	// Сохраняем edited SVG
+	editedSVGPath := h.storage.EditedSVGPath(userID, svgFilename)
+	if err := h.storage.SaveFile(userID, editedSVGPath, editedSVG); err != nil {
+		log.Printf("[AUTH] save edited svg error: %v", err)
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "failed to save edited svg"})
+	}
+	
+	// Генерируем PDF через PDF Service
+	pdfData, err := h.generatePDF(fileID, userID)
+	if err != nil {
+		log.Printf("[AUTH] generate pdf error: %v", err)
+		return c.Status(http.StatusBadGateway).JSON(fiber.Map{"error": "pdf generation failed", "details": err.Error()})
+	}
+	
+	// Отдаем PDF клиенту
+	c.Set("Content-Type", "application/pdf")
+	c.Set("Content-Disposition", fmt.Sprintf(`attachment; filename="report_%s_%s.pdf"`, fileID, time.Now().Format("20060102_150405")))
+	return c.Send(pdfData)
+}
+
 // UploadEditedSVG сохраняет измененный svg в svg/edited/.
 func (h *AuthHandler) UploadEditedSVG(c fiber.Ctx) error {
 	return h.saveFileToDir(c, h.storage.EnsureEditedSVGDir, h.storage.EditedSVGPath, ".svg")
@@ -704,4 +802,45 @@ func (h *AuthHandler) saveJSONFile(userID, filename string, data []byte) (string
 	}
 	path := h.storage.JSONPath(userID, filename)
 	return path, h.storage.SaveFile(userID, path, data)
+}
+
+// generatePDF вызывает PDF Service для генерации отчёта.
+func (h *AuthHandler) generatePDF(fileID, userID string) ([]byte, error) {
+	pdfServiceURL := os.Getenv("PDF_SERVICE_URL")
+	if pdfServiceURL == "" {
+		pdfServiceURL = "http://localhost:3004"
+	}
+	
+	reqBody := map[string]string{
+		"file_id": fileID,
+		"user_id": userID,
+	}
+	
+	jsonBody, err := json.Marshal(reqBody)
+	if err != nil {
+		return nil, err
+	}
+	
+	req, err := http.NewRequest(http.MethodPost, pdfServiceURL+"/generate", bytes.NewReader(jsonBody))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	
+	if resp.StatusCode >= 300 {
+		return nil, fmt.Errorf("pdf service status %d: %s", resp.StatusCode, string(data))
+	}
+	
+	return data, nil
 }

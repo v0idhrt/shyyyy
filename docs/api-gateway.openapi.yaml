@@ -475,6 +475,40 @@ paths:
         "400":
           description: Invalid JSON
 
+  /api/v1/users/{id}/json-edited-pdf:
+    post:
+      summary: Save edited JSON and generate PDF report (proxy Auth+PDF)
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+        - in: query
+          name: name
+          required: true
+          schema:
+            type: string
+          description: Имя файла (file_id) без расширения, используется для поиска оригинального JSON и сохранения edited JSON
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              description: Raw JSON данные редактированной планировки
+      responses:
+        "200":
+          description: PDF report
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: Invalid JSON or missing name
+        "404":
+          description: Original JSON not found
+        "502":
+          description: PDF generation failed
+
   /api/v1/users/{id}/json-to-svg:
     post:
       summary: Render scene JSON to edited SVG (proxy Auth+Converter)

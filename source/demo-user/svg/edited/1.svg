@@ -1,62 +1,32 @@
-<svg id="стены" xmlns="http://www.w3.org/2000/svg" width="2479" height="3508" viewBox="0 0 2479 3508">
-  <defs>
-    <style>
-      .cls-1, .cls-2 {
-        fill: #333;
-      }
-
-      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
-        stroke: #caa276;
-        stroke-width: 1px;
-      }
-
-      .cls-1, .cls-3, .cls-4, .cls-5, .cls-6 {
-        fill-rule: evenodd;
-      }
-
-      .cls-3, .cls-4 {
-        fill: #846db1;
-      }
-
-      .cls-4 {
-        fill-opacity: 0.4;
-      }
-
-      .cls-5 {
-        fill: #ffc087;
-      }
-
-      .cls-6 {
-        fill: #fa98c2;
-      }
-    </style>
-  </defs>
-  <path id="Hui_Wall_01" class="cls-1" d="M1203,1569v150h-15V1569h15Z"/>
-  <path id="Hui_Wall_02" class="cls-1" d="M930,1585v-16h258v16H930Z"/>
-  <path id="Hui_Wall_03" class="cls-1" d="M917,1250h29v319H915Z"/>
-  <path id="Hui_Wall_04" class="cls-1" d="M1410,1281v-30H945v30h465Z"/>
-  <path id="Wall_06" class="cls-1" d="M1165,1467v44h-20v-44h20Z"/>
-  <path id="Wall_07" class="cls-1" d="M1165,1281v186h-10V1280Z"/>
-  <path id="Hui_Wall_05" class="cls-1" d="M1410,1281v424h-14V1281h14Z"/>
-  <rect id="Hui_Wall_06" class="cls-2" x="1203" y="1703" width="208" height="18"/>
-  <path id="Wall_10" class="cls-1" d="M1396,1623H1279v-10h117v10Z"/>
-  <path id="Wall_11" class="cls-1" d="M1288,1473v140h-9V1473h9Z"/>
-  <path id="Wall_12" class="cls-1" d="M1396,1498v-25H1288v25h108Z"/>
-  <path id="Wall_13" class="cls-1" d="M1279,1501v10H1165v-10h114Z"/>
-  <path id="Wall_14" class="cls-1" d="M1000,1400h50v15h-50v-15Z"/>
-  <path id="Door_01" class="cls-1" d="M1313,1721v-18h-61v18h61Z"/>
-  <path id="Door_02" class="cls-1" d="M1288,1562h-9v-44h9v44Z"/>
-  <path id="Door_03" class="cls-1" d="M1241,1511v-10h-55v10h55Z"/>
-  <path id="Door_04" class="cls-1" d="M1156,1510v59h9v-59h-9Z"/>
-  <path id="Door_05" class="cls-1" d="M1335,1281v-31h-45v31h45Z"/>
-  <path id="Window_01" class="cls-1" style="fill: #ff0000;" d="M996,1281v-30h108v30H996Z"/>
-  <path id="Window_02" class="cls-1" d="M1227,1251v30h62v-31Z"/>
-  <path id="Balcony_01" class="cls-1" d="M1386,1251v-89h-9v89h9Z"/>
-  <rect id="Balcony_02" class="cls-2" x="1133" y="1162" width="10" height="89"/>
-  <path id="Balcony_03" class="cls-1" d="M1377,1171v-9H1143v9h234Z"/>
-  <path id="Toilet_room" class="cls-3" d="M1396,1614H1287V1497h110Z"/>
-  <path id="Hall_room" class="cls-4" d="M1397,1704H1203V1570h-38v-59h114v112h117Z"/>
-  <path id="Room_01" class="cls-5" d="M946,1281v288h210v-58h-11v-44h10V1281H946Z"/>
-  <path id="Room_02" class="cls-6" d="M1279,1501v-28h117V1280H1165v221h114Z"/>
-  <path id="Balcony_room" class="cls-6" d="M1377,1250v-79H1143v79h234Z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="3000" height="2000" viewBox="0 0 3000 2000">
+  <rect id="Wall_11_1" x="1613.75" y="823.5" width="9" height="112" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_05_1" x="1733" y="729.5" width="14" height="94" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_04_2" x="1497" y="1160.5" width="243" height="30" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_06_1" x="1540" y="720.5" width="200" height="18" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_05_2" x="1733" y="823.5" width="14" height="132.5" fill="none" stroke="#000" />
+  <rect id="Wall_12" x="1620.5" y="943.5" width="119.5" height="25" fill="none" stroke="#000" />
+  <rect id="Wall_05" x="1493" y="872.5" width="9" height="58" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_03_1" x="1252" y="872.5" width="31" height="303" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_01_3" x="1521.25" y="864.5" width="15" height="8" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_04_1" x="1282" y="1160.5" width="215" height="30" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_01_1" x="1532.5" y="718.5" width="7.5" height="15" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_02_2" x="1267" y="860.5" width="230.5" height="16" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_03_2" x="1252" y="1175.5" width="31" height="16" fill="none" stroke="#000" />
+  <rect id="Wall_11_2" x="1616" y="935.5" width="9" height="20.5" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_05_3" x="1733" y="956" width="14" height="204.5" fill="none" stroke="#000" />
+  <rect id="Wall_06_2" x="1484.75" y="930.5" width="20" height="44" fill="none" stroke="#000" />
+  <rect id="Wall_07" x="1489.5" y="974.5" width="10" height="187" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_01_2" x="1525" y="729.5" width="15" height="135" fill="none" stroke="#000" />
+  <rect id="Wall_10_2" x="1616" y="818.5" width="124" height="10" fill="none" stroke="#000" />
+  <rect id="Hui_Wall_02_3" x="1497.5" y="860.5" width="27.5" height="16" fill="none" stroke="#000" />
+  <rect id="Wall_11_3" x="1616" y="956" width="9" height="12.5" fill="none" stroke="#000" />
+  <path id="jDWh494X_2" d="M 1740 823.5 L 1740 956 L 1620.5 956 L 1620.5 935.5 L 1616 823.5 Z" fill="none" stroke="#888" />
+  <rect id="Door_01" x="1579.1666666666667" y="720.5" width="61" height="18" fill="none" stroke="#d62728" />
+  <rect id="Door_02" x="1614.3443798873789" y="872.2934549747631" width="9" height="44" fill="none" stroke="#d62728" />
+  <rect id="Window_02" x="1557.8" y="1160.5" width="62" height="30" fill="none" stroke="#1f77b4" />
+  <rect id="Door_04" x="1493" y="882.3333333333333" width="9" height="59" fill="none" stroke="#d62728" />
+  <rect id="Door_05" x="1634.5" y="1160.5" width="45" height="30" fill="none" stroke="#d62728" />
+  <rect id="Window_01" x="1315" y="1160.5" width="108" height="30" fill="none" stroke="#1f77b4" />
+  <path id="Balcony_02" d="M 1723 1279.5 L 1470 1279.5 L 1470 1190.5 L 1723 1190.5 Z" fill="none" stroke="#2ca02c" />
 </svg>

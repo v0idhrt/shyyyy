@@ -129,10 +129,17 @@ func main() {
 		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
 	})
 	api.Post("/users/:id/json-edited", func(c fiber.Ctx) error {
-		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json-edited", authURL, c.Params("id")))
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json-edited?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
 	})
 	api.Get("/users/:id/json-edited", func(c fiber.Ctx) error {
 		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json-edited?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
+	})
+	api.Post("/users/:id/json-edited-pdf", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json-edited-pdf?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
+	})
+
+	api.Post("/users/:id/json-to-svg", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/json-to-svg?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
 	})
 
 	// ComfyUI Service
