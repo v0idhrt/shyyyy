@@ -13,9 +13,10 @@ import (
 // Graph Builder
 // ============================================================
 
-const tolerance = 2.0       // Tolerance для объединения близких точек
-const connectTolerance = 15 // Насколько можно тянуть стену до пересечения
-const mergeTolerance = 12.0 // Радиус склейки близких вершин после разрезания сегментов
+const tolerance = 2.0         // Tolerance для объединения близких точек
+const connectTolerance = 15   // Допуск для поиска пересечения и снаппинга
+const mergeTolerance = 8.0    // Радиус склейки близких вершин после разрезания сегментов
+const axisSnapTolerance = 4.0 // Насколько расходиться от оси, чтобы зафиксировать координату
 
 type GraphBuilder struct {
 	vertices  map[string]models.Vertex
@@ -240,6 +241,7 @@ func (g *GraphBuilder) buildConnectedGraph() {
 	}
 
 	g.mergeCloseVertices()
+	g.snapAxisAligned()
 }
 
 func (g *GraphBuilder) splitSegments(segments []wallSegment) []wallSegment {
@@ -348,21 +350,11 @@ func (g *GraphBuilder) tryAddIntersection(h, v *segmentInfo) {
 		return
 	}
 
-	if vx < h.start {
-		h.start = vx
-	}
-	if vx > h.end {
-		h.end = vx
-	}
-	if hy < v.start {
-		v.start = hy
-	}
-	if hy > v.end {
-		v.end = hy
-	}
+	ix := clamp(vx, h.start, h.end)
+	iy := clamp(hy, v.start, v.end)
 
-	h.splitPoints = append(h.splitPoints, vx)
-	v.splitPoints = append(v.splitPoints, hy)
+	h.splitPoints = append(h.splitPoints, ix)
+	v.splitPoints = append(v.splitPoints, iy)
 }
 
 func uniquePoints(points []float64) []float64 {
@@ -380,6 +372,16 @@ func uniquePoints(points []float64) []float64 {
 
 func almostEqual(a, b float64) bool {
 	return math.Abs(a-b) < 1e-6
+}
+
+func clamp(v, min, max float64) float64 {
+	if v < min {
+		return min
+	}
+	if v > max {
+		return max
+	}
+	return v
 }
 
 // mergeCloseVertices объединяет вершины, которые находятся совсем рядом после разрезания сегментов.
@@ -489,6 +491,68 @@ func (g *GraphBuilder) mergeCloseVertices() {
 
 	g.vertices = newVertices
 	g.lines = newLines
+}
+
+// snapAxisAligned фиксирует координаты вершин по осям для почти горизонтальных/вертикальных линий.
+func (g *GraphBuilder) snapAxisAligned() {
+	if len(g.lines) == 0 {
+		return
+	}
+
+	type agg struct {
+		sumX float64
+		cntX int
+		sumY float64
+		cntY int
+	}
+
+	aggMap := make(map[string]*agg)
+
+	for _, line := range g.lines {
+		if len(line.Vertices) < 2 {
+			continue
+		}
+		v1 := g.vertices[line.Vertices[0]]
+		v2 := g.vertices[line.Vertices[1]]
+
+		dx := v1.X - v2.X
+		dy := v1.Y - v2.Y
+
+		if math.Abs(dy) <= axisSnapTolerance {
+			targetY := (v1.Y + v2.Y) / 2
+			for _, vid := range line.Vertices {
+				a := aggMap[vid]
+				if a == nil {
+					a = &agg{}
+					aggMap[vid] = a
+				}
+				a.sumY += targetY
+				a.cntY++
+			}
+		} else if math.Abs(dx) <= axisSnapTolerance {
+			targetX := (v1.X + v2.X) / 2
+			for _, vid := range line.Vertices {
+				a := aggMap[vid]
+				if a == nil {
+					a = &agg{}
+					aggMap[vid] = a
+				}
+				a.sumX += targetX
+				a.cntX++
+			}
+		}
+	}
+
+	for vid, a := range aggMap {
+		v := g.vertices[vid]
+		if a.cntX > 0 {
+			v.X = a.sumX / float64(a.cntX)
+		}
+		if a.cntY > 0 {
+			v.Y = a.sumY / float64(a.cntY)
+		}
+		g.vertices[vid] = v
+	}
 }
 
 // ============================================================

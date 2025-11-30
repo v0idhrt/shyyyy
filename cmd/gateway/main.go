@@ -34,6 +34,7 @@ func main() {
 
 	app.Use(recover.New())
 	app.Use(middleware.Logger())
+	app.Use(middleware.CORS())
 
 	// ============================================================
 	// Health Check Routes
@@ -84,6 +85,9 @@ func main() {
 	})
 	api.Get("/users/:id/pdf", func(c fiber.Ctx) error {
 		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/pdf", authURL, c.Params("id")))
+	})
+	api.Get("/users/:id/pdf-files", func(c fiber.Ctx) error {
+		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/pdf-files?%s", authURL, c.Params("id"), c.Request().URI().QueryString()))
 	})
 	api.Get("/users/:id/png", func(c fiber.Ctx) error {
 		return proxy.Forward(c, fmt.Sprintf("%s/users/%s/png", authURL, c.Params("id")))

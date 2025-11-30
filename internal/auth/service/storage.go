@@ -18,57 +18,69 @@ func NewFileStorage(root string) *FileStorage {
 	return &FileStorage{root: root}
 }
 
+// ============================================================
+// Directory paths
+// ============================================================
+
 func (s *FileStorage) UserDir(userID string) string {
 	return filepath.Join(s.root, userID)
 }
 
-func (s *FileStorage) SVGPath(userID string) string {
-	return filepath.Join(s.UserDir(userID), "plan.svg")
+func (s *FileStorage) SVGDir(userID string) string {
+	return filepath.Join(s.UserDir(userID), "svg")
 }
 
-func (s *FileStorage) PDFPath(userID string) string {
-	return filepath.Join(s.UserDir(userID), "document.pdf")
+func (s *FileStorage) PNGDir(userID string) string {
+	return filepath.Join(s.UserDir(userID), "png")
 }
 
-func (s *FileStorage) PNGPath(userID string) string {
-	return filepath.Join(s.UserDir(userID), "plan.png")
-}
-
-func (s *FileStorage) UploadsDir(userID string) string {
-	return filepath.Join(s.UserDir(userID), "uploads")
-}
-
-func (s *FileStorage) UploadsPNGPath(userID, base string) string {
-	return filepath.Join(s.UploadsDir(userID), base+".png")
-}
-
-func (s *FileStorage) UploadsSVGPath(userID, base string) string {
-	return filepath.Join(s.UploadsDir(userID), base+".svg")
-}
-
-func (s *FileStorage) EditedDir(userID string) string {
-	return filepath.Join(s.UserDir(userID), "edited")
-}
-
-func (s *FileStorage) EditedPath(userID, filename string) string {
-	return filepath.Join(s.EditedDir(userID), filename)
+func (s *FileStorage) PDFDir(userID string) string {
+	return filepath.Join(s.UserDir(userID), "pdf")
 }
 
 func (s *FileStorage) JSONDir(userID string) string {
 	return filepath.Join(s.UserDir(userID), "json")
 }
 
-func (s *FileStorage) JSONPath(userID, filename string) string {
-	return filepath.Join(s.JSONDir(userID), filename)
+func (s *FileStorage) EditedSVGDir(userID string) string {
+	return filepath.Join(s.SVGDir(userID), "edited")
 }
 
 func (s *FileStorage) EditedJSONDir(userID string) string {
 	return filepath.Join(s.JSONDir(userID), "edited")
 }
 
+// ============================================================
+// File paths
+// ============================================================
+
+func (s *FileStorage) SVGPath(userID, filename string) string {
+	return filepath.Join(s.SVGDir(userID), filename)
+}
+
+func (s *FileStorage) PNGPath(userID, filename string) string {
+	return filepath.Join(s.PNGDir(userID), filename)
+}
+
+func (s *FileStorage) PDFPath(userID, filename string) string {
+	return filepath.Join(s.PDFDir(userID), filename)
+}
+
+func (s *FileStorage) JSONPath(userID, filename string) string {
+	return filepath.Join(s.JSONDir(userID), filename)
+}
+
+func (s *FileStorage) EditedSVGPath(userID, filename string) string {
+	return filepath.Join(s.EditedSVGDir(userID), filename)
+}
+
 func (s *FileStorage) EditedJSONPath(userID, filename string) string {
 	return filepath.Join(s.EditedJSONDir(userID), filename)
 }
+
+// ============================================================
+// Ensure directories
+// ============================================================
 
 func (s *FileStorage) EnsureDir(userID string) error {
 	path := s.UserDir(userID)
@@ -78,18 +90,26 @@ func (s *FileStorage) EnsureDir(userID string) error {
 	return nil
 }
 
-func (s *FileStorage) EnsureUploadsDir(userID string) error {
-	path := s.UploadsDir(userID)
+func (s *FileStorage) EnsureSVGDir(userID string) error {
+	path := s.SVGDir(userID)
 	if err := os.MkdirAll(path, 0o755); err != nil {
-		return fmt.Errorf("mkdir uploads dir: %w", err)
+		return fmt.Errorf("mkdir svg dir: %w", err)
 	}
 	return nil
 }
 
-func (s *FileStorage) EnsureEditedDir(userID string) error {
-	path := s.EditedDir(userID)
+func (s *FileStorage) EnsurePNGDir(userID string) error {
+	path := s.PNGDir(userID)
 	if err := os.MkdirAll(path, 0o755); err != nil {
-		return fmt.Errorf("mkdir edited dir: %w", err)
+		return fmt.Errorf("mkdir png dir: %w", err)
+	}
+	return nil
+}
+
+func (s *FileStorage) EnsurePDFDir(userID string) error {
+	path := s.PDFDir(userID)
+	if err := os.MkdirAll(path, 0o755); err != nil {
+		return fmt.Errorf("mkdir pdf dir: %w", err)
 	}
 	return nil
 }
@@ -102,6 +122,14 @@ func (s *FileStorage) EnsureJSONDir(userID string) error {
 	return nil
 }
 
+func (s *FileStorage) EnsureEditedSVGDir(userID string) error {
+	path := s.EditedSVGDir(userID)
+	if err := os.MkdirAll(path, 0o755); err != nil {
+		return fmt.Errorf("mkdir edited svg dir: %w", err)
+	}
+	return nil
+}
+
 func (s *FileStorage) EnsureEditedJSONDir(userID string) error {
 	path := s.EditedJSONDir(userID)
 	if err := os.MkdirAll(path, 0o755); err != nil {
@@ -109,6 +137,10 @@ func (s *FileStorage) EnsureEditedJSONDir(userID string) error {
 	}
 	return nil
 }
+
+// ============================================================
+// Save file
+// ============================================================
 
 func (s *FileStorage) SaveFile(userID, target string, data []byte) error {
 	if err := s.EnsureDir(userID); err != nil {

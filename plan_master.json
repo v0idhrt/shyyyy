@@ -126,7 +126,7 @@
   },
   "1214": {
     "inputs": {
-      "seed": 72780948726053,
+      "seed": 810846508721531,
       "steps": 6,
       "cfg": 1,
       "sampler_name": "euler",
@@ -161,12 +161,12 @@
           {
             "name": "A",
             "selected": true,
-            "url": "/api/view?filename=rgthree.compare._temp_pmksy_00001_.png&type=temp&subfolder=&rand=0.5923576295073463"
+            "url": "/api/view?filename=rgthree.compare._temp_zveds_00001_.png&type=temp&subfolder=&rand=0.21032950175606557"
           },
           {
             "name": "B",
             "selected": true,
-            "url": "/api/view?filename=rgthree.compare._temp_pmksy_00002_.png&type=temp&subfolder=&rand=0.5391583504076387"
+            "url": "/api/view?filename=rgthree.compare._temp_zveds_00002_.png&type=temp&subfolder=&rand=0.3048031602779968"
           }
         ]
       },
@@ -222,7 +222,7 @@
   "1221": {
     "inputs": {
       "pixels": [
-        "1226",
+        "1225",
         0
       ],
       "vae": [
@@ -237,7 +237,7 @@
   },
   "1222": {
     "inputs": {
-      "image": "360.png"
+      "image": "bf1bf823-c383-4519-ba7b-5b629a3dcd81.jpg"
     },
     "class_type": "LoadImage",
     "_meta": {
@@ -297,37 +297,6 @@
       "title": "🔧 Image Resize"
     }
   },
-  "1226": {
-    "inputs": {
-      "overlay_resize": "Fit",
-      "resize_method": "nearest-exact",
-      "rescale_factor": 1,
-      "width": [
-        "1223",
-        0
-      ],
-      "height": [
-        "1223",
-        1
-      ],
-      "x_offset": 0,
-      "y_offset": 0,
-      "rotation": 0,
-      "opacity": 0.5,
-      "base_image": [
-        "1225",
-        0
-      ],
-      "overlay_image": [
-        "1238",
-        0
-      ]
-    },
-    "class_type": "Image Overlay",
-    "_meta": {
-      "title": "Image Overlay"
-    }
-  },
   "1228": {
     "inputs": {
       "string_a": "beautiful interior, 2.5d, render, high quality vizualisation. ",
@@ -378,7 +347,7 @@
   },
   "1232": {
     "inputs": {
-      "string_a": "Take the provided gray 2.5d apartment model and the reference interior image. Keep all proportions and  of the model exactly the same. Using the style, materials, colors, lighting, and overall mood of the reference interior image. Preserve a color and texture of a floor, walls, and furniture. Produce a high-quality, realistic render. Preserve accurate perspective and lighting consistency.",
+      "string_a": "Transform the gray 2.5d apartment model into a full interior render inspired by the reference image. Add matching furniture and decor where missing. Use realistic materials, textures, lighting, and color palette from the reference to create a professional interior visualization rather than a simple color fill.",
       "string_b": "",
       "delimiter": ""
     },

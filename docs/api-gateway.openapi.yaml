@@ -236,6 +236,31 @@ paths:
         "401":
           description: Unauthorized
 
+  /api/v1/users/{id}/pdf-files:
+    get:
+      summary: Get PDF by name (proxy Auth)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+        - in: query
+          name: name
+          schema:
+            type: string
+          required: true
+          description: PDF filename
+      responses:
+        "200":
+          description: PDF
+          content:
+            application/pdf:
+              schema:
+                type: string
+        "401":
+          description: Unauthorized
+        "404":
+          description: File not found
+
   /api/v1/users/{id}/png:
     get:
       summary: Get PNG (proxy Auth)
@@ -514,6 +539,44 @@ paths:
           description: Saved
         "401":
           description: Unauthorized
+
+  /api/v1/users/{id}/json-to-svg:
+    post:
+      summary: Render scene JSON to edited SVG (proxy Auth+Converter)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+        - in: query
+          name: name
+          required: true
+          schema:
+            type: string
+          description: Базовое имя исходного файла (без .svg добавится автоматически)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlannerScene"
+      responses:
+        "201":
+          description: SVG saved to edited
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  path:
+                    type: string
+                  filename:
+                    type: string
+        "400":
+          description: Invalid input
+        "401":
+          description: Unauthorized
+        "502":
+          description: Converter error
 
   /api/v1/comfyui/submit:
     post:
