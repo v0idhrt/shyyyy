@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 2.5cm 2cm;
+        }
+
+        body {
+            font-family: 'Times New Roman', 'Georgia', serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            color: #222;
+        }
+
+        .document-title {
+            text-align: center;
+            font-size: 16pt;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid #000;
+            padding-bottom: 10px;
+        }
+
+        .header {
+            text-align: right;
+            margin-bottom: 35px;
+            font-size: 10pt;
+            padding: 10px;
+            background: #f8f8f8;
+            border-left: 4px solid #333;
+        }
+
+        .header .date {
+            font-weight: bold;
+            font-size: 11pt;
+        }
+
+        .header .city {
+            margin-top: 3px;
+            color: #555;
+        }
+
+        .section-title {
+            font-size: 13pt;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #000;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .plans-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 35px;
+            page-break-inside: avoid;
+            border: 2px solid #ddd;
+            padding: 15px;
+            background: #fafafa;
+        }
+
+        .plan {
+            width: 48%;
+            text-align: center;
+        }
+
+        .plan img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .plan-label {
+            font-size: 10pt;
+            font-weight: bold;
+            color: #333;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .separator {
+            width: 3px;
+            background: linear-gradient(to bottom, #666, #333, #666);
+            margin: 0 15px;
+        }
+
+        .changes-section {
+            margin-bottom: 35px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-left: 5px solid #000;
+        }
+
+        .changes-list {
+            padding-left: 25px;
+            margin-top: 10px;
+        }
+
+        .changes-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .changes-list li::marker {
+            font-weight: bold;
+        }
+
+        .no-changes {
+            font-style: italic;
+            color: #666;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            border: 2px solid #000;
+            background: #f8f8f8;
+            page-break-inside: avoid;
+        }
+
+        .footer-title {
+            font-size: 12pt;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .applicant-info {
+            font-size: 10pt;
+            line-height: 1.8;
+        }
+
+        .applicant-info div {
+            margin-bottom: 8px;
+            padding: 5px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .applicant-info strong {
+            display: inline-block;
+            width: 170px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .signature-section {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+        }
+
+        .signature-block {
+            width: 45%;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid #000;
+            margin-top: 30px;
+            padding-bottom: 5px;
+            font-size: 9pt;
+            color: #666;
+        }
+
+        .legend {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+            font-size: 9pt;
+        }
+
+        .legend-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 10pt;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .legend-symbol {
+            width: 30px;
+            height: 3px;
+            margin-right: 10px;
+            background: #000;
+        }
+
+        .legend-symbol.dashed {
+            background: repeating-linear-gradient(
+                to right,
+                #000,
+                #000 5px,
+                transparent 5px,
+                transparent 10px
+            );
+        }
+
+        .page-number {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 9pt;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="document-title">
+        Отчёт об изменениях планировки помещения
+    </div>
+
+    <div class="header">
+        <div class="date">Дата: {{ date }}</div>
+        <div class="city">г. Краснодар</div>
+    </div>
+
+    <div class="section-title">Сравнение планировок</div>
+
+    <div class="plans-container">
+        <div class="plan">
+            <img src="data:image/png;base64,{{ original_png }}" alt="Оригинальная планировка">
+            <div class="plan-label">Исходная планировка</div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="plan">
+            <img src="data:image/png;base64,{{ edited_png }}" alt="Изменённая планировка">
+            <div class="plan-label">Планировка после изменений</div>
+        </div>
+    </div>
+
+    <div class="legend">
+        <div class="legend-title">Условные обозначения:</div>
+        <div class="legend-item">
+            <div class="legend-symbol" style="height: 3px; background: #000;"></div>
+            <span>Стены (сплошная линия)</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol dashed"></div>
+            <span>Двери (пунктирная линия)</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol" style="height: 2px; background: #000;"></div>
+            <span>Окна (двойная линия)</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-symbol" style="background: #f0f0f0; border: 1px solid #ccc; height: 15px;"></div>
+            <span>Помещения (серая заливка)</span>
+        </div>
+    </div>
+
+    <div class="section-title">Описание изменений</div>
+
+    <div class="changes-section">
+        {% if changes %}
+        <ul class="changes-list">
+            {% for change in changes %}
+            <li>{{ change }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-changes">Изменения в планировке не обнаружены.</p>
+        {% endif %}
+    </div>
+
+    <div class="section-title">Данные заявителя</div>
+
+    <div class="footer">
+        <div class="applicant-info">
+            <div><strong>Фамилия, Имя, Отчество:</strong> {{ fio }}</div>
+            <div><strong>Контактный телефон:</strong> {{ phone }}</div>
+            <div><strong>Адрес объекта:</strong> {{ address }}</div>
+        </div>
+
+        <div class="signature-section">
+            <div class="signature-block">
+                <div>Заявитель:</div>
+                <div class="signature-line">_________________ / {{ fio }} /</div>
+            </div>
+            <div class="signature-block">
+                <div>Дата подачи:</div>
+                <div class="signature-line">{{ date }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-number">
+        Документ сформирован автоматически | {{ date }}
+    </div>
+</body>
+</html>

@@ -35,7 +35,6 @@
   <path id="Hui_Wall_02" class="cls-1" d="M930,1585v-16h258v16H930Z"/>
   <path id="Hui_Wall_03" class="cls-1" d="M917,1250h29v319H915Z"/>
   <path id="Hui_Wall_04" class="cls-1" d="M1410,1281v-30H945v30h465Z"/>
-  <path id="Wall_05" class="cls-1" d="M1165,1569v-58h-9v58h9Z"/>
   <path id="Wall_06" class="cls-1" d="M1165,1467v44h-20v-44h20Z"/>
   <path id="Wall_07" class="cls-1" d="M1165,1281v186h-10V1280Z"/>
   <path id="Hui_Wall_05" class="cls-1" d="M1410,1281v424h-14V1281h14Z"/>
@@ -44,12 +43,13 @@
   <path id="Wall_11" class="cls-1" d="M1288,1473v140h-9V1473h9Z"/>
   <path id="Wall_12" class="cls-1" d="M1396,1498v-25H1288v25h108Z"/>
   <path id="Wall_13" class="cls-1" d="M1279,1501v10H1165v-10h114Z"/>
-  <path id="Door_01" class="cls-1" d="M1293,1721v-18h-61v18h61Z"/>
+  <path id="Wall_14" class="cls-1" d="M1000,1400h50v15h-50v-15Z"/>
+  <path id="Door_01" class="cls-1" d="M1313,1721v-18h-61v18h61Z"/>
   <path id="Door_02" class="cls-1" d="M1288,1562h-9v-44h9v44Z"/>
   <path id="Door_03" class="cls-1" d="M1241,1511v-10h-55v10h55Z"/>
   <path id="Door_04" class="cls-1" d="M1156,1510v59h9v-59h-9Z"/>
   <path id="Door_05" class="cls-1" d="M1335,1281v-31h-45v31h45Z"/>
-  <path id="Window_01" class="cls-1" d="M996,1281v-30h108v30H996Z"/>
+  <path id="Window_01" class="cls-1" style="fill: #ff0000;" d="M996,1281v-30h108v30H996Z"/>
   <path id="Window_02" class="cls-1" d="M1227,1251v30h62v-31Z"/>
   <path id="Balcony_01" class="cls-1" d="M1386,1251v-89h-9v89h9Z"/>
   <rect id="Balcony_02" class="cls-2" x="1133" y="1162" width="10" height="89"/>

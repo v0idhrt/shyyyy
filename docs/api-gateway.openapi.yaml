@@ -118,14 +118,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/LoginResponse"
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}:
     get:
       summary: User profile (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       responses:
@@ -135,14 +131,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/files:
     get:
       summary: List files (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       responses:
@@ -153,14 +145,10 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/svg:
     get:
       summary: Get SVG (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       responses:
@@ -170,12 +158,8 @@ paths:
             image/svg+xml:
               schema:
                 type: string
-        "401":
-          description: Unauthorized
     post:
       summary: Upload SVG (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       requestBody:
@@ -193,14 +177,10 @@ paths:
       responses:
         "200":
           description: Saved
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/pdf:
     get:
       summary: Get PDF (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       responses:
@@ -210,12 +190,8 @@ paths:
             application/pdf:
               schema:
                 type: string
-        "401":
-          description: Unauthorized
     post:
       summary: Upload PDF (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       requestBody:
@@ -233,14 +209,10 @@ paths:
       responses:
         "200":
           description: Saved
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/pdf-files:
     get:
       summary: Get PDF by name (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
         - in: query
@@ -256,16 +228,12 @@ paths:
             application/pdf:
               schema:
                 type: string
-        "401":
-          description: Unauthorized
         "404":
           description: File not found
 
   /api/v1/users/{id}/png:
     get:
       summary: Get PNG (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       responses:
@@ -275,12 +243,8 @@ paths:
             image/png:
               schema:
                 type: string
-        "401":
-          description: Unauthorized
     post:
       summary: Upload PNG (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       requestBody:
@@ -298,14 +262,10 @@ paths:
       responses:
         "200":
           description: Saved
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/png-to-svg:
     post:
       summary: PNG → SVG passthrough (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       requestBody:
@@ -327,14 +287,10 @@ paths:
             image/svg+xml:
               schema:
                 type: string
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/png-to-json:
     post:
       summary: PNG → JSON via paired SVG (proxy Auth+Converter)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       requestBody:
@@ -356,14 +312,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PlannerScene"
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/svg-edited:
     get:
       summary: Get edited SVG by name (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
         - in: query
@@ -378,12 +330,8 @@ paths:
             image/svg+xml:
               schema:
                 type: string
-        "401":
-          description: Unauthorized
     post:
       summary: Upload edited SVG (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       requestBody:
@@ -401,14 +349,10 @@ paths:
       responses:
         "200":
           description: Saved
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/svg-json:
     get:
       summary: Convert original SVG to JSON by name (proxy Auth+Converter)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
         - in: query
@@ -423,14 +367,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PlannerScene"
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/svg-edited-json:
     get:
       summary: Convert edited SVG to JSON by name (proxy Auth+Converter)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
         - in: query
@@ -445,14 +385,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PlannerScene"
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/json:
     get:
       summary: Get JSON by name (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
         - in: query
@@ -468,12 +404,8 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
-        "401":
-          description: Unauthorized
     post:
       summary: Upload JSON file (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       requestBody:
@@ -491,14 +423,10 @@ paths:
       responses:
         "200":
           description: Saved
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/json-edited:
     get:
       summary: Get edited JSON by name (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
         - in: query
@@ -514,12 +442,8 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
-        "401":
-          description: Unauthorized
     post:
       summary: Upload edited JSON file (proxy Auth)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
       requestBody:
@@ -537,14 +461,10 @@ paths:
       responses:
         "200":
           description: Saved
-        "401":
-          description: Unauthorized
 
   /api/v1/users/{id}/json-to-svg:
     post:
       summary: Render scene JSON to edited SVG (proxy Auth+Converter)
-      security:
-        - bearerAuth: []
       parameters:
         - $ref: "#/components/parameters/UserId"
         - in: query
@@ -573,8 +493,6 @@ paths:
                     type: string
         "400":
           description: Invalid input
-        "401":
-          description: Unauthorized
         "502":
           description: Converter error
 
@@ -660,11 +578,6 @@ paths:
           description: Not found
 
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
   parameters:
     UserId:
       in: path

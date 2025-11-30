@@ -78,6 +78,9 @@ func main() {
 
 	app.Post("/login", authHandler.Login)
 	app.Get("/users/:id", authHandler.GetUser)
+
+	// Internal routes (для межсервисного общения)
+	app.Get("/internal/users/:id", authHandler.GetUserInternal)
 	app.Get("/users/:id/svg", authHandler.GetSVG)
 	app.Get("/users/:id/pdf", authHandler.GetPDF)
 	app.Get("/users/:id/pdf-files", authHandler.GetPDFByName)

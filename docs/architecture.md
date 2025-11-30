@@ -16,6 +16,7 @@
 - `GET /api/v1/users/:id/pdf` - proxy → Auth Service
 - `POST /api/v1/users/:id/svg` - proxy → Auth Service
 - `POST /api/v1/users/:id/pdf` - proxy → Auth Service
+- `POST /api/v1/pdf/generate` - proxy → PDF Service
 
 **Компоненты:**
 - `cmd/gateway` - точка входа
@@ -55,6 +56,18 @@
 - `internal/auth/repository` - sqlite repository
 - `internal/auth/handlers` - http handlers
 - `internal/auth/service` - sessions + storage
+
+### PDF Service (порт 3004)
+Генерация PDF отчётов о изменениях планировок (Python/Flask).
+
+**Endpoints:**
+- `GET /health` - health check
+- `POST /generate` - генерация PDF отчёта
+
+**Компоненты:**
+- `cmd/pdf_service/main.py` - Flask сервер
+- `cmd/pdf_service/svg_comparator.py` - сравнение SVG
+- `cmd/pdf_service/templates/report.html` - HTML шаблон для PDF
 
 ## Общие модули
 

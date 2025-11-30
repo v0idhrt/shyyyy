@@ -145,6 +145,10 @@ func main() {
 		return proxy.Forward(c, fmt.Sprintf("%s/download/%s/%s", comfyuiURL, c.Params("user_id"), c.Params("filename")))
 	})
 
+	// PDF Service
+	pdfURL := getEnv("PDF_SERVICE_URL", "http://localhost:3004")
+	api.Post("/pdf/generate", proxy.ProxyTo(pdfURL+"/generate"))
+
 	// ============================================================
 	// Server Start
 	// ============================================================
